@@ -1,0 +1,20 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# ResetSATA      
+#
+# REVISION HISTORY
+# Created.                                  10/10/2017  doug johnson
+#-------------------------------------------------------------------
+
+
+for id in `ls /sys/class/scsi_host/host*/scan`; do
+   echo `date`" $id"
+   echo "0 0 0" > $id
+done
+
+exit

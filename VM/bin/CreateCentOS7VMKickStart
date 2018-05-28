@@ -1,0 +1,79 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CreateSL7KickStart      
+#
+# REVISION HISTORY
+# Created.                                  06/19/2017  doug johnson
+#-------------------------------------------------------------------
+
+#
+# Get the pathname to this script
+#
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPTROOT="$SCRIPTPATH/.."
+
+#
+# Parse the command line
+#
+hostname=$1
+output="$SCRIPTROOT/kickstarts/$hostname-ks.cfg"
+hostsFile="/etc/hosts"
+template="$SCRIPTROOT/templates/centos7-vm-template.cfg"
+
+#
+# Check for this host in /etc/hosts and get its IP address
+#
+testGrep=`egrep '^1' $hostsFile | grep -ic $hostname.najah.edu`
+if [ $testGrep != 1 ]; then
+   echo `date`" Searched file: $hostsFile"
+   echo `date`" Unable to find unique match for $hostname"
+   exit -1
+fi
+
+mkdir -p $SCRIPTROOT/kickstarts
+
+ipaddr=`egrep '^1' $hostsFile | grep -i $hostname.najah.edu | awk '{print $1}'`
+case "$ipaddr" in
+    192.168.*)
+         netmask="255.255.0.0"
+         gateway="192.168.3.1"
+         ;;
+    192.12.*)
+         netmask="255.255.255.0"
+         gateway="192.12.238.1"
+         ;;
+    128.138.*)
+         netmask="255.255.255.0"
+         gateway="128.138.133.1"
+         ;;
+    172.16.9.*)
+         netmask="255.255.240.0"
+         gateway="172.16.1.2"
+         ;;
+    *)
+         echo `date`" No subnet match for $hostname $ipaddr"
+         exit -1
+         ;;
+ 
+esac
+
+echo `date`" Creating kickstart file for: $hostname"
+echo `date`"                              $ipaddr"
+echo `date`"                              $netmask"
+echo `date`"                              $gateway"
+echo `date`" Using template: $template"
+echo `date`" Kickstart file: $output"
+
+date=`date`
+sed s/%IPADDR%/$ipaddr/g  $template | sed s/%HOSTNAME%/$hostname/g | sed s/%NETMASK%/$netmask/g | sed s/%GATEWAY%/$gateway/g | sed s/%DATE%/"$date"/g > $output
+
+$SCRIPTPATH/InsertRootPasswd $output
+
+exit
+
+

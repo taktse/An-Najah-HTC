@@ -1,0 +1,110 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# GetDiskById      
+#
+# REVISION HISTORY
+# Created.                                  08/01/2017  doug johnson
+#-------------------------------------------------------------------
+my $fullname = $0;
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_d, $opt_l, $opt_s, $opt_f);
+         
+getopts("hd:f:ls");
+         
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   system("perldoc $fullname");
+   exit;
+}
+
+if($opt_l) {
+  Print("Listing available drives");
+  system("fdisk -l | grep Disk | grep dev");
+  Print("Exiting");
+  exit 1;
+}
+
+#
+# Code goes here...
+#
+my $serial;
+my $model;
+my $device;
+if($opt_d =~ /\/dev\//) {
+  $device = "$opt_d";
+}
+if($opt_d !~ /\/dev\//) {
+  $device = "/dev/$opt_d";
+}
+
+open(SMARTCTL, "smartctl --all $device | egrep 'Device Model:|Serial Number:' |") or die " What the heck: $! smartctl --all $device\n";         
+while(chomp(my $input = <SMARTCTL>)) {
+  if($input =~ /Device Model/) {
+    $input =~ s/Device Model://g;
+    $input =~ s/^\s*//g;
+    $input =~ s/\s*$//g;
+    $input =~ s/ /_/g;
+    $model = $input;
+  }
+  if($input =~ /Serial Number/) {
+    $input =~ s/Serial Number://g;
+    $input =~ s/^\s*//g;
+    $input =~ s/\s*$//g;
+    $input =~ s/ /_/g;
+    $serial = $input;
+  }
+}
+my $byid = "$model\_$serial";
+Print("Disk identifier: $byid");
+exit;
+
+
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+
+=head1 
+
+Syntax:
+
+         GetDiskById [-h]
+
+EXAMPLES:
+
+    If you are having problems seeing a newly plugged in disk try running:
+
+        sudo echo "0 0 0" > ! /sys/class/scsi_host/host*/scan
+
+    then run:
+
+        fdisk -l
+
+=cut

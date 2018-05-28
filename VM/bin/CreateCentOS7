@@ -1,0 +1,26 @@
+#!/bin/bash 
+#
+# This script creates a VM by running virt-install
+#
+name=${VMNAME:-"$1"}
+ISO=${ISO:-"/nfs/htc180/pub/centos/7/os/x86_64/images/boot.iso"}
+path_to_virts=${PATH_TO_VIRTS:-"/var/lib/libvirt/images"}
+KS=${KICKSTART_FILE:-"http://172.16.9.180/software/ks/${name}-ks.cfg"}
+br_device=${BR_DEVICE:-"br0"}
+CPUS=${CPUS:-"1"}
+MEMORY=${MEMORY:-"2048"}
+echo $name
+echo $ISO
+echo $path_to_virts
+echo $KS
+echo $br_device
+echo "CPUS: $CPUS"
+echo "Memory: $MEMORY"
+
+set -x
+
+virt-install --name ${name} --ram ${MEMORY} --disk path=${path_to_virts}/${name}.qcow2,format=qcow2,size=30 --vcpus $CPUS --os-type linux --os-variant rhel6 --network bridge=${br_device} --graphics none --console pty,target_type=serial --location=${ISO} --extra-args "console=ttyS0,115200n8 serial ks=$KS"
+
+exit
+
+
