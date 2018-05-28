@@ -1,0 +1,9 @@
+#!/bin/bash
+
+systemctl restart cobblerd
+sleep 5
+cobbler sync
+systemctl restart xinetd
+
+exit
+

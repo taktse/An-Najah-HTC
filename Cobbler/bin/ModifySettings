@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $serverIP = $ARGV[0];
+
+#
+# Generate the root password
+#
+print " Please enter the root password\n";
+chomp(my $password = `openssl passwd -1`);
+my $status = $? >> 8;
+while($status) {
+  chomp($password = `openssl passwd -1`);
+  $status = $? >> 8;
+}
+
+#
+# Make the substitions in /etc/cobbler/settings
+#
+open(IN,  "/etc/cobbler/settings") or die " What the heck: $! /etc/cobbler/settings\n";
+open(OUT, ">/tmp/settings") or die " What the heck: $! /tmpsettings\n";
+while(my $input = <IN>) {
+  if($input =~ /^default_password_crypted:/){$input = "default_password_crypted: \"$password\"\n";}
+  if($input =~ /^manage_dhcp:/)   { $input = "manage_dhcp: 1\n";}
+  if($input =~ /^manage_dns:/)    { $input = "manage_dns: 1\n";}
+  if($input =~ /^manage_tftpd:/)  { $input = "manage_tftpd: 1\n";}
+  if($input =~ /^restart_dhcp:/)  { $input = "restart_dhcp: 1\n";}
+  if($input =~ /^pxe_just_once:/) { $input = "pxe_just_once: 1\n";}
+  if($input =~ /^next_server:/)   { $input = "next_server: $serverIP\n";}
+  if($input =~ /^server:/)        { $input = "server: $serverIP\n";}
+
+  print OUT $input;
+}
+
+my $time = time;
+
+#
+#  Install the modified file
+#
+system("mv /etc/cobbler/settings /etc/cobbler/settings.$time");
+system("mv /tmp/settings /etc/cobbler/settings");
+
+#
+# Print what we did
+#
+print " Updated variables:\n";
+system("egrep '^manage_dhcp:|^manage_dns:|^manage_tftpd:|^restart_dhcp:|^pxe_just_once:|^next_server:|^server:|^default_password_crypted:' /etc/cobbler/settings |sort");
+
+exit;
+

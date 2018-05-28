@@ -1,0 +1,80 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# AddNewHost
+#
+# REVISION HISTORY
+# Created.                                  05/28/2018  doug johnson
+#-------------------------------------------------------------------
+# set -x
+#
+# Get the pathname to this script
+#
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPTROOT="$SCRIPTPATH/.."
+parent="CentOS7-x86_64"
+hostsFile="/etc/hosts"
+hostsFile="/tmp/hosts"
+macsFile="$SCRIPTROOT/mac-address/macs.lst"
+
+#
+# Parse the command line
+#
+host=$1
+if [ x$host = x ]; then
+  echo " You must specify a host. Exiting"
+  echo " Usage: S0 HOST"
+  exit -1
+fi 
+
+#
+# Check for this host in /etc/hosts and get its IP address
+#
+testGrep=`egrep '^1' $hostsFile | grep -i $host.najah.edu | wc -l`
+if [ $testGrep != 1 ]; then
+   echo `date`" Searched file: $hostsFile"
+   echo `date`" Unable to find unique match for $host"
+   exit -1
+fi
+	 
+ip=`grep $host.najah.edu $hostsFile | awk '{print $1}'`
+if [ x$ip = x ]; then
+    echo `date`" Unable to determine IP address for host: $host. Exiting..."
+    exit -1
+fi 
+
+mac=`egrep "^$ip " $macsFile | awk '{print $2}'`
+echo "MAC: $mac "
+if [ x${mac} = x ]; then
+    echo `date`" Unable to determine MAC address for host: $host. Exiting..."
+    exit -1
+fi 
+
+
+echo `date`" Adding new host to cobbler: $host $parent "
+cobbler system  remove --name=$host
+cobbler profile remove --name=$host
+
+
+echo `date`" Creating new profile: $host"
+cobbler profile add    --name=$host --kickstart=/var/lib/cobbler/kickstarts/${host}.ks --parent=$parent
+
+echo `date`" Creating new system: $host $mac $ip "
+cobbler system  add    --name=$host --profile=$host --interface=eth0 --mac=$mac --ip-address=$ip --netmask=255.0.0.0 --static=1 --dns-name=$host.najah.edu
+
+echo `date`" Creating system with host specific parameters: $host $ip $mac"
+
+cobbler system edit    --name=$host --gateway=10.0.0.1 --hostname=$host.najah.edu
+
+echo -n `date`" New Cobbler system:  "
+cobbler system list | grep $host
+echo -n `date`" New Cobbler profile: "
+cobbler profile list | grep $host
+
+cobbler sync > /dev/null 2>&1
+cobbler system report --name=$host | egrep 'Name|Gateway|Hostname|Profile|IP Address|MAC Address|Subnet Mask'
+exit

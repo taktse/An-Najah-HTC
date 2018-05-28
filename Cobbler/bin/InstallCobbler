@@ -1,0 +1,97 @@
+#!/bin/bash
+
+serverIP=`ip -4 address | grep inet | grep -v '127.0.0.' | awk  '{print $2}' | sed s'/\/.*//'`
+hostname=`hostname`
+
+echo `date`" Starting cobbler installation and configuration for $hostname at $serverIP"
+
+echo `date`" Install the software"
+yum -y install epel-release
+yum -y install cobbler fence-agents cobbler-web dnsmasq syslinux pykickstart xinetd perl emacs
+
+
+echo `date`" Enabling and starting cpbblerd and https"
+systemctl start cobblerd ; systemctl enable cobblerd
+systemctl start httpd; systemctl enable httpd
+systemctl start xinetd; systemctl enable xinetd
+
+echo `date`" Setting the selinux permission level"
+setenforce 0
+sed s'/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config > /tmp/config
+date=`date +%s`
+mv /etc/selinux/config /etc/selinux/config.$date
+mv /tmp/config /etc/selinux/config
+
+cobbler check
+status=$?
+if [ $status != 0 ]; then
+   echo `date`" ERROR: Initial part of installation failed. Exiting"
+   exit $status
+fi
+
+echo `date`" Configure the firewall"
+firewall-cmd --add-port=22/tcp --permanent
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --add-port=443/tcp --permanent
+firewall-cmd --add-service=dhcp --permanent
+firewall-cmd --add-port=69/tcp --permanent
+firewall-cmd --add-port=69/udp --permanent
+firewall-cmd --add-port=4011/udp --permanent
+firewall-cmd --reload
+
+echo `date`" Modifying /etc/cobbler/settings"
+echo `date`" Generate the default password for cobbler setting"
+./ModifySettings $serverIP
+
+echo `date`" Creating /etc/cobbler/dnsmasq.template"
+
+echo '
+#--------------------------------------------------------------------------------
+# Cobbler generated configuration file for dnsmasq
+# $date 
+#
+
+# resolve.conf .. ?
+#no-poll
+#enable-dbus
+read-ethers
+addn-hosts = /var/lib/cobbler/cobbler_hosts
+
+dhcp-range=192.168.0.1,192.168.254.254,1h
+dhcp-ignore=tag:!known
+dhcp-option=66,$next_server
+dhcp-lease-max=1000
+dhcp-authoritative
+dhcp-boot=pxelinux.0
+dhcp-boot=net:normalarch,pxelinux.0
+dhcp-boot=net:ia64,$elilo
+
+$insert_cobbler_system_definitions
+#------------------------------------------------------------
+' >> /tmp/dnsmasq.template
+time=`date +%s`
+mv /etc/cobbler/dnsmasq.template /etc/cobbler/dnsmasq.template.$time
+mv /tmp/dnsmasq.template         /etc/cobbler/dnsmasq.template
+
+echo `date`" You now need to edit /etc/cobbler/modules.conf and sure the following are set:"
+echo '
+[dns]
+module = manage_dnsmasq
+[dhcp]
+module = manage_dnsmasq
+[tftpd]
+module = manage_in_tftpd
+'
+
+echo `date`" The run the following commands to restart the services and sync cobber"
+echo '
+systemctl restart cobblerd
+cobbler sync
+systemctl restart xinetd
+'
+
+echo `date`" Then you will be ready to import an ISO into cobber"
+
+exit
+
+
