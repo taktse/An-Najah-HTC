@@ -1,0 +1,21 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# RunGenerateSshKnownHosts      
+#
+# REVISION HISTORY
+# Created.                                  08/24/2017  doug johnson
+#-------------------------------------------------------------------
+
+#
+# Get the pathname to this script
+#
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+SCRIPTROOT="$SCRIPTPATH/.."
+
+sshKnownHosts="${SCRIPTPATH}/ssh/ssh_known_hosts"
+/bin/cat keys/* > $sshKnownHosts

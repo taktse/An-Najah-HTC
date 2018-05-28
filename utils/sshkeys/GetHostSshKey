@@ -1,0 +1,107 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# GetHostSshKey
+#
+# REVISION HISTORY
+# Created.                                  08/24/2017  doug johnson
+#-------------------------------------------------------------------
+my $fullname = $0;
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_v);
+
+getopts("hv");
+
+my $verbose = $opt_v;
+
+#
+# Get the pathname to this script
+#
+chomp(my $SCRIPTPATH=`dirname $fullname`);
+my $SCRIPTROOT = "$SCRIPTPATH";
+         
+Print("$SCRIPTROOT");
+
+my $keyDir = "$SCRIPTROOT/keys";
+my $tmpDir = "$SCRIPTROOT/tmp";
+
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   system("perldoc $fullname");
+   exit;
+}
+         
+#
+# Get a list of hosts from /etc/hosts
+# Parse hostnames for IPs: 128.138.133.0/24, 192.168.0.0/16, 192.12.238.0/24 10.0.0.0/8
+#
+my $hostname = $ARGV[0];
+my $ipRegex = '^128.138.133.|^192.168.|^192.12.238|^10.|172.16.9';
+Print("Getting key for $hostname");
+chomp(my $input = `grep $hostname /etc/hosts`);
+next unless $input =~ /$ipRegex/;
+($input, my $comment) = split('#', $input);
+(my @fields) = split(" ", $input);
+my $keyFile = "$fields[1].keys";
+Print("Checking file: $keyFile") if $verbose;
+my $hostnames;
+foreach my $field (@fields) {
+  $hostnames .= "$field,";
+}
+$hostnames =~ s/,$//g;
+Print("Get keys for $hostnames") if $verbose;
+system("/usr/bin/ssh-keyscan -T 3 -4 -t rsa,dsa,ecdsa $hostnames 2>1 | grep -v 'no hostkey' >  $tmpDir/$keyFile 2>&1");
+my $status = ($? >> 8);
+next if $status;
+my $newFileDiff = 0;
+next if -z "$tmpDir/$keyFile";
+system("cmp -s $keyDir/$keyFile  $tmpDir/$keyFile");
+my $status = ($? >> 8);
+if($status) {
+  Print("Update file: $keyFile");
+  system("cp $tmpDir/$keyFile $keyDir/$keyFile");
+}
+ 
+Print("Finishing updating ssh host keys");
+exit;
+        
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+
+=head1 
+
+Syntax:
+
+         GenerateSshKnownHosts [-h]
+
+EXAMPLES:
+
+=cut
