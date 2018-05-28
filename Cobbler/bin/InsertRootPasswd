@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $kickstart = $ARGV[0];
+my $tmpFile   = "/tmp/InsertRootPassword_$$";
+
+#
+# Generate the root password
+#
+print " Please enter the root password\n";
+chomp(my $password = `openssl passwd -1`);
+my $status = $? >> 8;
+while($status) {
+  chomp($password = `openssl passwd -1`);
+  $status = $? >> 8;
+}
+
+#
+# Make the substitions in the kickstart file
+#
+open(IN,  "$kickstart") or die " What the heck: $!$kickstart \n";
+open(OUT, "> $tmpFile") or die " What the heck: $! $tmpFile\n";
+while(my $input = <IN>) {
+  if($input =~ /ENCRYPTED_PASSWORD/){
+    $input = "rootpw --iscrypted  $password\n";
+  }
+  print OUT $input;
+}
+
+close(OUT);
+close(IN);
+system("mv $tmpFile $kickstart");
+exit;
+

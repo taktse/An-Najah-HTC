@@ -1,0 +1,41 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# VirtClone      
+#
+# REVISION HISTORY
+# Created.                                  04/19/2016  doug johnson
+#-------------------------------------------------------------------
+
+original=$1
+new=$2
+
+#
+# Set the path where we look for VM images
+#
+path_to_virts=${PATH_TO_VIRTS:-"/var/lib/libvirt/images"}
+echo `date`" Looking for VMs in $path_to_virts"
+ls -al $path_to_virts/$original*
+
+if [ x$new = x ] || [ x$original = x ] ; then
+   echo " Usage: $0 Original_VM New_VM"
+   exit
+fi
+
+echo `date`" Suspending ${original}"
+virsh suspend ${original}
+sleep 5
+echo `date`" Starting clone of ${original} -> ${new}"
+virt-clone --original ${original} --name ${new} --file=${path_to_virts}/${new}.qcow2
+echo `date`" Clone complete"
+echo `date`" Resuming ${original}"
+virsh resume ${original}
+virsh list --all 2>&1 | egrep "${original}|${new}"
+
+exit
+
+
