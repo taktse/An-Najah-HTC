@@ -1,4 +1,4 @@
-	# Class: role
+# Class: role
 # ===========================
 #
 # Full description of class role here.
@@ -51,7 +51,7 @@ class role {
 # Worker node profiles
 #
 class role::htcxxx inherits role {
-    notice("Configuration for generic worker node")
+    notify{'role::htcxxx':, message => "Configuration for generic worker node"}
     include profile::htcxxx
 }
 
@@ -59,30 +59,31 @@ class role::htcxxx inherits role {
 #  Server profiles
 #
 class role::server inherits role {
+    notify{'role::server':, message => "Configuration for server node"}
     include profile::base
 }
 
 class role::server::www inherits role::server {
-    notice("Configuration for the www server")
+    notify{'role::www':, message => "Configuration for www node"}
     include profile::www
 }
 
 class role::server::puppet {
-    notice("Configuration for the puppet server")
+    notify{'role::puppet':, message => "Configuration for puppet node"}
     include profile::puppet
 }
 
 class role::server::cobbler inherits role::server {
-    notice("Configuration for the cobbler server")
+    notify{'role::cobbler':, message => "Configuration for cobbler node"}
     include profile::cobbler
 }
 
 class role::server::login inherits role::server {
-    notice("Configuration for the login server")
+    notify{'role::login':, message => "Configuration for login node"}
     include profile::login
 }
 
 class role::server::htc180 inherits role::server {
-    notice("Configuration for the htc180 server")
+    notify{'role::htc180':, message => "Configuration for central server node"}
     include profile::htc180
 }
