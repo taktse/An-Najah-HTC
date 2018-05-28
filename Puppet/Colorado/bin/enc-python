@@ -1,0 +1,21 @@
+#!/usr/bin/python
+
+import yaml
+import sys
+
+#
+# Create an empty hash
+#
+enc                    = {}
+enc["classes"]         = {}
+enc["classes"]["base"] = {}
+enc["parameters"]      = {}
+enc["emvironment"]     = "production"
+
+#
+# Output the ENC as yaml
+#
+print "----"
+print yaml.dump(enc)
+sys.exit(0)
+

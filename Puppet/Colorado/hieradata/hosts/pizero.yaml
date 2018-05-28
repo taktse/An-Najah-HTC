@@ -1,0 +1,7 @@
+---
+iptables::config_file: 'iptables-pizero'
+
+datadisks::disk1::mount: '/var/spool/mail'
+datadisks::disk1::label: 'MAILDISK'
+datadisks::disk1::export: '@allhosts'
+

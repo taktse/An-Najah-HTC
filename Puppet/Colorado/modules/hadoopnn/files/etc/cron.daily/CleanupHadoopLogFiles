@@ -1,0 +1,17 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CleanupHadoopLogFiles      
+#
+# REVISION HISTORY
+# Created.                                  08/11/2013  doug johnson
+#-------------------------------------------------------------------
+
+/bin/rm -f /var/log/hadoop/*.201* > /dev/null 2>&1
+exit
+
+

@@ -1,0 +1,46 @@
+#
+#  Direct mount most everything on the system
+#
+/nfs/WWW              heplocal:/amd/heplocal/nfs/heplocal/osf/WWW
+/nfs/admin01          hepadmin01:/amd/hepadmin01/nfs/admin01
+/nfs/babarcode        babarcode:/amd/babarcode/nfs/babarcode
+/nfs/backup01         backup01:/amd/backup01/nfs/backup01
+/nfs/backup02         backup02:/amd/backup02/nfs/backup02
+/nfs/backup03         backup03:/amd/backup03/nfs/backup03
+/nfs/beowulf01        beowulf:/amd/beowulf/nfs/beowulf01
+/nfs/beowulf02        lnxdata102:/amd/lnxdata102/nfs/beowulf02
+/nfs/beowulf03        lnxdata103:/amd/lnxdata103/nfs/beowulf03
+/nfs/beowulf04        lnxdata104:/amd/lnxdata104/nfs/beowulf04
+/nfs/data31           lnxdata301:/amd/lnxdata301/nfs/data31
+/nfs/data32           lnxdata302:/amd/lnxdata302/nfs/data32
+/nfs/data33           lnxdata303:/amd/lnxdata303/nfs/data33
+/nfs/data34           lnxdata304:/amd/lnxdata304/nfs/data34
+/nfs/data35           lnxdata305:/amd/lnxdata305/nfs/data35
+/nfs/data36           lnxdata306:/amd/lnxdata306/nfs/data36
+/nfs/data37           lnxdata307:/amd/lnxdata307/nfs/data37
+/nfs/data38           lnxdata308:/amd/lnxdata308/nfs/data38
+/nfs/data39           lnxdata309:/amd/lnxdata309/nfs/data39
+/nfs/data40           lnxdata310:/amd/lnxdata310/nfs/data40
+/nfs/data41           lnxdata311:/amd/lnxdata311/nfs/data41
+/nfs/data42           lnxdata312:/amd/lnxdata312/nfs/data42
+/nfs/data43           lnxdata313:/amd/lnxdata313/nfs/data43
+/nfs/data44           lnxdata314:/amd/lnxdata314/nfs/data44
+/nfs/dcache101        dcache101:/amd/dcache101/nfs/dcache101
+/nfs/dcache102        dcache102:/amd/dcache102/nfs/dcache102
+/nfs/gridusers        gridusers:/amd/gridusers/nfs/gridusers
+/nfs/gridusers01      gridusers01:/amd/gridusers01/nfs/gridusers01
+/nfs/hepcode          hepcode:/amd/hepcode/nfs/hepcode
+/nfs/hepgums01        hepgums:/amd/hepgums/nfs/hepgums01
+/nfs/heplocal         heplocal:/amd/heplocal/nfs/heplocal
+/nfs/heposg01         heposg01:/amd/heposg01/nfs/heposg01
+/nfs/heposg02         heposg01:/amd/heposg01/nfs/heposg02
+/nfs/hepsge01         hepsge01:/amd/hepsge01/nfs/hepsge01
+/nfs/hepusers         hepusers:/amd/hepusers/nfs/hepusers
+/nfs/hepwrk01         hepwrk01:/amd/hepwrk01/nfs/hepwrk01
+/nfs/lnxcode01        lnxcode01:/amd/lnxcode01/nfs/lnxcode01
+/nfs/localsrc         heplocal:/amd/heplocal/nfs/heplocal/osf/localsrc
+/nfs/objy01           lnxfarm:/amd/lnxfarm/nfs/objy01
+/nfs/objy02           objysrv232:/amd/objysrv232/nfs/objy02
+/nfs/objy04           lnxfarm122:/amd/lnxfarm122/nfs/objy04
+/nfs/objy05           objysrv230:/amd/objysrv230/nfs/objy05
+/nfs/objy06           objysrv231:/amd/objysrv231/nfs/objy06

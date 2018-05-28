@@ -1,0 +1,11 @@
+---
+
+datadisks::
+ - 'lnxcode01'
+
+datadisks::lnxcode01::mount: '/amd/lnxcode01/nfs/lnxcode01'
+datadisks::lnxcode01::label: 'LNXCODE01'
+datadisks::lnxcode01::export: '@allhosts(rw,async,no_root_squash) 128.138.133.0/24(rw,async,no_root_squash) 192.168.0.0/255.255.0.0(rw,async,no_root_squash) 192.12.238.129/255.255.255.224(rw,async,no_root_squash)'
+datadisks::lnxcode01::type:   'xfs'
+
+nfs::args_rpc_nfsd_count: 'RPCNFSDCOUNT=16'

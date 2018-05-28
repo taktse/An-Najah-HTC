@@ -1,0 +1,8 @@
+# -*- conf-unix -*-
+
+<%- if @command.start_with?("/") -%>
+command[<%= @name %>]=<%= @command %>
+<%- else -%>
+command[<%= @name %>]=<%= @nrpe_plugins %>/<%= @command %>
+<%- end -%>
+# EOF

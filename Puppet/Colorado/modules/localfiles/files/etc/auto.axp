@@ -1,0 +1,8 @@
+#-----------------------------------------------------------==ADM==
+# This file has been Customized for CUHEP by staff
+# to run in the pizero-subnet environment.
+# auto.axp            last modified:     04/09/2013  doug johnson
+#------------------------------------------------------------------
+
+*       -fstype=autofs,-Dhost=&,-Dprefix=&     file:/etc/auto.axp.sub
+

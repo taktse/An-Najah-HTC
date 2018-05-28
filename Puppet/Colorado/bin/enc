@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+require 'yaml'
+
+@enc                    = Hash.new
+@enc["classes"]         = Hash.new
+@enc["classes"]["base"] = Hash.new
+@enc["parameters"]      = Hash.new
+@enc["environment"]     = "production"
+puts @enc.to_yaml
+exit(0)

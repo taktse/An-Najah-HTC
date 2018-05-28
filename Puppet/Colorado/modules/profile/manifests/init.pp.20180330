@@ -1,0 +1,285 @@
+# Class: profile
+# ===========================
+#
+# Full description of class profile here.
+#
+# Parameters
+# ----------
+#
+# Document parameters here.
+#
+# * `sample parameter`
+# Explanation of what this parameter affects and what it defaults to.
+# e.g. "Specify one or more upstream ntp servers as an array."
+#
+# Variables
+# ----------
+#
+# Here you should define a list of variables that this module would require.
+#
+# * `sample variable`
+#  Explanation of how this variable affects the function of this class and if
+#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
+#  External Node Classifier as a comma separated list of hostnames." (Note,
+#  global variables should be avoided in favor of class parameters as
+#  of Puppet 2.6.)
+#
+# Examples
+# --------
+#
+# @example
+#    class { 'profile':
+#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    }
+#
+# Authors
+# -------
+#
+# Author Name <author@domain.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2017 Your name here, unless otherwise noted.
+#
+class profile {
+    notify{"profile": message => "Profile profile class"}
+    notice("Profile class")
+    include local_defs
+    include stdlib
+    include local_repos
+}
+
+class profile::base inherits profile {
+    notify{"profile::base": message => "Profile profile::base class"}
+    notice("Profile base class")
+    include network_manager
+    include common_packages
+    include common_services
+    include fallback_reboot
+    include localfiles
+    include autofs
+    include iptables
+    include kerberos
+    include ntp
+    include nfs
+    include motd
+}
+
+#
+class profile::base::minimal inherits profile {
+    notify{"profile::base": message => "Profile profile::base class"}
+    notice("Profile base class")
+    include network_manager
+    include common_packages
+    include fallback_reboot
+    include localfiles
+    include iptables
+    include kerberos
+    include ntp
+    include motd
+}
+
+#
+# Basic CMS node
+# Inherits all the properties from profile::base
+#
+class profile::cms     inherits profile::base {
+    notify{"profile::cms": message => "Profile profile::cms class"}
+    notice("Profile profile::cms class")
+    include osg_repo
+}
+
+#
+# Basic OSG node
+# Inherits all the properties from profile::base
+#
+class profile::osg inherits profile::base {
+    notify{"profile::osg": message => "Profile profile::osg class (base osg node)"}
+    include osg_repo
+    include osg_ca_certs
+}
+
+class profile::osg::rsv inherits profile::osg {
+    notify{"profile::osg::rsv": message => "Profile profile::osg::rsv class"}
+    include osg_repo
+}
+
+class profile::osg::server inherits profile::osg {
+    notify{"profile::osg::server": message => "Profile profile::osg::server class"}
+    include osg_repo
+}
+
+#
+# Profile for CA/CRL updater node
+#    
+class profile::osg::certs inherits profile::osg {
+    notify{"profile::osg::certs": message => "Profile profile::osg::certs class (certificate updater)"}
+    include osg_certs_updater
+}
+
+#
+# Profile for CMS squid nodes
+# Uses OSG software so it inherits profile::osg
+#
+class profile::cms::squid inherits profile::osg {
+    notify{"profile::cms::squid": message => "Profile profile::cms::squid class"}
+    include osg_squid
+}
+
+
+
+#
+#------------------------------------------------------------------------------------------------
+# Condor roles
+#
+class profile::condor inherits role {
+    notify{'profile::condor': message => 'profile::condor - Role for the condor base class'}
+}
+
+class profile::condor::master inherits profile::condor {
+    notify{'profile::condor::master': message => 'profile::condor::master - Role for the condor master class'}
+    include osg_wn_client
+    include cvmfs
+    include condor_master
+}
+
+class profile::condor::submit inherits profile::condor {
+    notify{'profile::condor::submit': message => 'profile::condor::submit - Role for the condor submit class'}
+    include osg_wn_client
+    include cvmfs
+    include condor_submit
+}
+
+class profile::condor::submit::local inherits profile::condor::submit {
+    notify{'profile::condor::submit::local': message => 'profile::condor::submit::local - Role for the condor submit class'}
+    include osg_wn_client
+    include cvmfs
+    include condor_submit
+    include condor_local_pool
+}
+
+class profile::condor::submit::pool inherits profile::condor::submit {
+    notify{'profile::condor::submit::pool': message => 'profile::condor::submit::pool - Role for the condor submit class'}
+    include osg_wn_client
+    include cvmfs
+    include condor_submit
+    include condor_global_pool
+}
+
+class profile::condor::wn inherits profile::condor {
+    notify{'profile::condor::wn': message => 'profile::condor::wn - Role for the condor worker node class'}
+    include osg_wn_client
+    include cvmfs
+    include condor_wn
+}
+
+#
+# Profile for the foreman server
+# Does not add all the extras for a typical node
+#
+class profile::foreman inherits profile {
+    notify{'profile::foreman':, message => "Profile foreman class", }
+}
+
+#
+# Profile for the lvs server
+# Does not add all the extras for a typical node
+#
+class profile::lvs inherits profile {
+    notify{'profile::lvs':, message => "Profile lvs class", }
+    include lvs
+    include keepalived
+}
+
+#
+# Profile for a kvm server
+# Does not add all the extras for a typical node
+#
+class profile::kvm inherits profile {
+    notify{'profile::kvm':, message => "Profile kvm class", }
+    include kvm_host
+    include datadisks
+}
+
+#
+# Profile for xrootd node
+# Uses OSG software so it inherits profile::osg
+#
+class profile::cms::xrootd inherits profile::osg {
+    notify{'profile::cms::xrootd': message => "Profile CMS::XROOTD class",}
+}
+
+#
+# Profile for a basic CUHEP server
+# By default it does not include OSG/CMS/etc software
+#
+class profile::server inherits profile::base {
+    notice("Profile SERVER class")
+}
+
+#
+# Profile for the login machines
+# 
+class profile::server::login inherits profile::server {
+    notify{'profile::server::login': message => 'Profile for login server'}
+    cuhep_package_installation{'tmux':}
+    cuhep_package_installation{'tmux-top':}
+}
+
+#
+# Profile for a basic CUHEP server
+# The assumption is this machine will need the OSG software
+#
+class profile::hepserver inherits profile::server {
+    notify{'profile::hepserver': message => "Profile for profile::hepserver class"}
+}
+
+class profile::hepsrv inherits profile::server {
+    notify{'profile::hepsrv': message => "Profile for profile::hepsrv class"}
+}
+
+class profile::ntp inherits profile {
+    notice("Profile ntp class")
+}
+
+class profile::server::print inherits profile {
+    notify{'profile::server::print': message => "Profile print server class"}
+    include print_server
+}
+
+
+class profile::desktop inherits profile::base {
+    notify{'profile::desktop':, message => "Profile for profile::desktop"}
+    include osg_repo
+    include osg_ca_certs
+    include osg_wn_client
+    include cvmfs
+}
+
+class profile::server::data inherits profile::base {
+    notify{' profile::server::data':, message => "Profile for data server"}
+    include datadisks
+    include osg_ca_certs
+}
+
+class profile::server::backup inherits profile::base {
+    notify{' profile::server::backup':, message => "Profile for backp server"}
+    include datadisks
+}
+
+class profile::lnxfarm inherits profile::base {
+    notify{' profile::lnxfarm':, message => "Profile for lnxfarm worker node"}
+    include osg_repo
+    include osg_ca_certs
+    include osg_wn_client
+    include cvmfs
+}
+
+#
+# Profile for standalone linux router
+#
+class profile::router {
+   notify{"profile::router": message => "Profile profile::router class"}
+   include router
+}

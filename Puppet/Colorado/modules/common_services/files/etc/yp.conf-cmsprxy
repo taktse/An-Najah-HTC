@@ -1,0 +1,21 @@
+# /etc/yp.conf - ypbind configuration file
+# Valid entries are
+#
+#domain NISDOMAIN server HOSTNAME
+#	Use server HOSTNAME for the domain NISDOMAIN.
+#
+#domain NISDOMAIN broadcast
+#	Use  broadcast  on  the local net for domain NISDOMAIN
+#
+#ypserver HOSTNAME
+#	Use server HOSTNAME for the  local  domain.  The
+#	IP-address of server must be listed in /etc/hosts.
+#
+# This file created for use on cmsprxy hosts
+#
+domain maze server 192.168.2.22
+domain maze server 192.168.3.19
+domain maze server 128.138.133.142
+domain maze server 192.168.2.20
+domain maze broadcast
+

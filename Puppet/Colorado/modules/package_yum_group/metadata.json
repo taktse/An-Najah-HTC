@@ -1,0 +1,15 @@
+{
+  "name": "geoffwilliams-package_yum_group",
+  "version": "0.1.0",
+  "author": "geoffwilliams",
+  "summary": "Add a package provider yum_group to provide access to `yum group` via puppet",
+  "license": "Apache-2.0",
+  "source": "https://github.com/GeoffWilliams/puppet-package_yum_group.git",
+  "project_page": "https://github.com/GeoffWilliams/puppet-package_yum_group",
+  "issues_url": "https://api.github.com/repos/GeoffWilliams/puppet-package_yum_group/issues{/number}",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null,
+  "project_url": "https://github.com/GeoffWilliams/puppet-package_yum_group.git"
+}

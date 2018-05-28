@@ -1,0 +1,10 @@
+#-----------------------------------------------------------==ADM==
+# This file has been Customized for CUHEP by staff
+# to run in the pizero-subnet environment.
+# auto.axpbase            last modified:     08/13/2013  doug johnson
+#------------------------------------------------------------------
+#
+#  This map redirect the request to file auto.axpsub
+#
+
+* -fstype=autofs,-Dhost=& file:/etc/auto.axpsub

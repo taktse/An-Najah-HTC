@@ -1,0 +1,173 @@
+#
+#
+# Install a configuration file
+#
+define install_config_file (
+    String $source_file = hiera("localfiles::config::$name", "$title"),
+    String $dest_file   = $title,
+    String $directory = 'etc',
+    String $mode = '0644',
+  ) {
+     if $source_file != 'undefined' {
+       file { "/${directory}/${dest_file}":
+         ensure  => file,
+         replace => true,
+         owner   => 'root',
+         group   => 'root',
+         mode    => "${mode}",
+         source => "puppet:///modules/localfiles/${directory}/${source_file}",
+       }
+     }
+  }
+
+#
+# Create a symbolic link
+#
+define create_symlink (
+     String $from = hiera("localfiles::symlink::$name", "$title"),
+     String $to   = hiera("localfiles::symlink_to::${from}", "$to"), 
+  )
+  {
+    $from_hiera = $from
+    $from_hiera = regsubst($from_hiera, '^/', '')
+    $from_hiera = regsubst($from_hiera, '/$', '')
+    $from_hiera = regsubst($from_hiera, '/', '_')
+
+    $from = hiera("localfiles::symlink::${from_hiera}", "$from")
+    $to   = hiera("localfiles::symlink_to::${from_hiera}", "$to")
+
+    if $from != 'undefined' {
+      notify{"${from}": message => "Creating symbolic link $from -> $to (localfiles::symlink_to::${from_hiera})"}
+      file { "$from": 
+        ensure => link,
+        target => "$to",
+      }
+    }
+}
+
+#
+# Create a directory
+#
+define create_directory (
+   String $directory = hiera("localfiles::directory::$name", "$title"),
+   String $owner = 'root',
+   String $group = 'root',
+   String $mode  = '0755',
+ ) {
+     if $directory != 'undefined' {
+       file { "$directory":
+         ensure => directory,
+         owner  => "${owner}",
+         group  => "${group}",
+         mode   => "${mode}",
+       }
+   }
+}
+
+#
+# Install /etc/motd 
+# Contains $facts that are unique to each machine
+#   
+define motd {
+   if $kernelrelease != undef {
+     $hostname     = $facts['fqdn']
+     $model        = $facts['processors']['models'][0]
+     $number_cores = $facts['processors']['count']
+     $os           = $facts['os']['distro']['description']
+     $kernel       = $facts['kernelrelease']
+     $memory       = $facts['memory']['system']['total']
+     $swap         = $facts['memory']['swap']['total']
+     file {'/etc/motd':
+        mode  => '0644',
+        owner => 'root',
+        group => 'root',
+        content => template('localfiles/motd.erb'),
+   }
+  }
+}
+
+#--------------------------------------------------------------------------
+#
+# Main install class
+# etc/sysctl.d/90-cuhep-no-ipv6.conf
+# etc/netconfig
+# etc/ssh/sshd_config
+#--------------------------------------------------------------------------
+
+class localfiles::install inherits localfiles {
+
+ install_config_file { 'hosts': }
+ install_config_file { 'nsswitch.conf': }
+ install_config_file { 'resolv.conf': }
+ install_config_file { 'csh.cshrc': }
+ install_config_file { 'csh.login': }
+ install_config_file { 'netconfig': }
+ install_config_file { 'CUStuff.sh':            directory => "etc/profile.d",}
+ install_config_file { 'CUStuff.csh':           directory => "etc/profile.d",}
+ install_config_file { 'ssh_known_hosts':       directory => "etc/ssh",}
+ install_config_file { 'sshd_config':           directory => "etc/ssh", mode => '0600',} 
+ install_config_file { '90-cuhep-no-ipv6.conf': directory => "etc/sysctl.d", mode => '0644',} 
+ create_directory    { "/root/.emacs.d":        mode => '0775',}
+ install_config_file { '.emacs':                directory => "root",}
+ install_config_file { 'puppet-mode.el':        directory => "root/.emacs.d",}
+ install_config_file { '.bash_profile':         directory => "root",}
+ install_config_file { '.cshrc':                directory => "root",}
+ install_config_file { '.login':                directory => "root",}
+ install_config_file { 'authorized_keys':       directory => "root/.ssh", mode => '0600',} 
+
+ install_config_file { 'CleanBatchSpace':,    mode => '0755', directory => "etc/cron.daily",}
+ install_config_file { 'RecordUptime':,       mode => '0755', directory => "etc/cron.daily",}
+ install_config_file { 'RunGetSMARTResults':, mode => '0755', directory => "etc/cron.daily",}
+
+ create_symlink{ '/com-stat':,       to => "/nfs/heplocal/WWW/html/computing/ClusterStatus",}
+ create_symlink{ '/sge-batch':,      to => "/batch/${facts['hostname']}",}
+ create_symlink{ '/usr/local':,      to => "/misc/local",}
+ create_symlink{ '/usr/users':  ,    to => "/nfs/hepusers/users",}
+ create_symlink{ '/usr/users02':,    to => "/nfs/hepusers/users02",}
+ create_symlink{ '/usr/adm':,        to => '/var/log',}
+ create_symlink{ '/usr/spool':,      to => '/var/spool',}
+ create_symlink{ '/var/spool/mail':, to => '/misc/mail',}
+
+#-------------------------------------------------------------------------------------------
+# Create the batch area directory. This should only matter for machines
+# without dedicated partitions. It is historical that the directory is:
+#  /amd/batch/$hostname/batch 
+# This was the mount point when we used the amd automounter and it is
+# used in the auto.batch map file.
+# WARNING: On systems without a dedicated partition this is probably on /
+#
+ create_directory { "/amd":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}/batch":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}/batch/${facts['hostname']}":, mode => '1777',}
+ file_line { 'exports_batch':
+    path => '/etc/exports',
+    line => "/amd/${facts['hostname']}/batch/${facts['hostname']}   @allhosts(rw,async,no_root_squash)",
+    match => "^/amd/${facts['hostname']}/batch/${facts['hostname']}.*$",
+ }
+
+#-------------------------------------------------------------------------------------------
+
+#
+#  Append some lines to /etc/securetty so that rsh/rlogin will
+#  Note: At some point this should be removed when these clients are no longer need to manage the system
+#
+ file_line { 'securetty_rsh':
+   path => '/etc/securetty',
+   line => 'rsh',
+ }
+ file_line { 'securetty_rlogin':
+   path => '/etc/securetty',
+   line => 'rlogin',
+ }
+
+#
+# /etc/motd is a special case since it is different on every machine and
+# is built from a template. It should probably be its own module and
+# class: TODO?
+#
+ if $kernelrelease != undef {
+   motd{'motd':}
+ }
+
+}

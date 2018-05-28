@@ -1,0 +1,12 @@
+#-----------------------------------------------------------==ADM==
+# This file has been Customized for CUHEP by staff
+# to run in the pizero-subnet environment.
+# auto.axpsub            last modified:     08/13/2013  doug johnson
+#------------------------------------------------------------------
+#
+# This map does the actual mounting. It will match
+# any /axp/$host/wrk# and mount /amd/$host/axp/$host/wrk#
+#
+
+*     ${host}:/amd/${host}/axp/${host}/&
+

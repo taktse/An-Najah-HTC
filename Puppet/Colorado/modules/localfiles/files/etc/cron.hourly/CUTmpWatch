@@ -1,0 +1,26 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CUTmpWatch      
+#
+# REVISION HISTORY
+# Created.                                  12/08/2017  doug johnson
+#-------------------------------------------------------------------
+
+HOST=`hostname -s | sed s'/[0-9]*//g'`
+if [ $HOST != lnxfarm ]; then
+   exit
+fi
+
+flags=-umc
+/usr/sbin/tmpwatch "$flags" -x /tmp/.X11-unix -x /tmp/.XIM-unix \
+        -x /tmp/.font-unix -x /tmp/.ICE-unix -x /tmp/.Test-unix \
+        -X '/tmp/hsperfdata_*' -X '/tmp/.hdb*lock' -X '/tmp/.sapstartsrv*.log' \
+        -X '/tmp/pymp-*' 2d /tmp
+
+exit
+

@@ -1,0 +1,13 @@
+#-----------------------------------------------------------==ADM==
+# This file has been Customized for CUHEP by staff
+# to run in the pizero-subnet environment.
+# auto.batch            last modified:     08/13/2013  doug johnson
+#------------------------------------------------------------------
+# *** NOTE: Only for use with /batch
+# 
+#           autofs mount maps for /batch/$hostname
+# 
+#   *  -rw,soft,vers=3,noacl,nocto,rsize=32768,wsize=32768,proto=udp,timeo=30,retrans=12,intr,nodev,grpid,ping=30    &:/amd/&/batch/&
+
+
+*  -rw,soft,noacl,nocto,rsize=32768,wsize=32768,timeo=30,retrans=12,intr,nodev,grpid,ping=30    &:/amd/&/batch/&

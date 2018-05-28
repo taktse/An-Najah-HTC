@@ -1,0 +1,21 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# BackupPuppetLabs      
+#
+# REVISION HISTORY
+# Created.                                  09/27/2017  doug johnson
+#-------------------------------------------------------------------
+
+cd /etc/
+date=`date +%Y%m%d`
+host=`hostname -s`
+echo `date`" Starting backup: $host /etc/puppetlabs"
+tar -czf  /usr/local/adm/puppet/puppet-server/puppetlabs-${host}-${date}6.tar.gz  puppetlabs/
+echo `date`" Finsihed backup: $host /etc/puppetlabs"
+
+exit

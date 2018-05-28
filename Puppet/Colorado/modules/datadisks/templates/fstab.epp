@@ -1,0 +1,13 @@
+# Create additional lines for fstab for the datadisks
+
+<% $datadisks.each |$datadisk| { -%>
+<%  if $datadisk != "undefined" { -%>
+<%     
+
+<% $ntp::servers.each |$server| { -%>
+<%   if $ntp::noselect_servers.member($server) { -%>
+# <%= $server %>
+<%   } elsif $ntp::preferred_servers.size() == 0 or $ntp::preferred_servers.member($server) { -%>
+<%= $server %>
+<%   } -%>
+<% } -%>

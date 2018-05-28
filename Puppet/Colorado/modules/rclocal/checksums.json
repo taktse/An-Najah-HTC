@@ -1,0 +1,12 @@
+{
+  "LICENSE": "a300b604c66de62cf6e923cca89c9d83",
+  "README.md": "114b8526e447fa4ad25f227cfc59d85d",
+  "Rakefile": "e90d68823ff237c89224eb139f8926ad",
+  "manifests/init.pp": "b6a6d61f27999f83de31477e4b917b95",
+  "manifests/params.pp": "60f7b97422bcfc88f7d34f3680ff34aa",
+  "manifests/script.pp": "6a075433d54aec765b2088bb9456f558",
+  "metadata.json": "5a72474a7e371311d492bff802c34f09",
+  "spec/classes/rclocal_spec.rb": "4b15a44729198069ccd74eba4ff43a55",
+  "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+  "templates/rc.local.erb": "742488a588f2758b7acf437320f5071d"
+}

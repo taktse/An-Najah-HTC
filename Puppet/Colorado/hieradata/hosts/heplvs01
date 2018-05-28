@@ -1,0 +1,60 @@
+---
+iptables::config_file: 'iptables-gridftp'
+
+keepalived::vrrp_instance:
+  VI_50:
+    interface: 'eth1'
+    state: 'MASTER'
+    virtual_router_id: '50'
+    priority: '101'
+    auth_type: 'PASS'
+    auth_pass: 'secret'
+    virtual_ipaddress: '192.12.238.147/24'
+    track_interface:
+      - 'eth1'
+
+
+keepalived::virtual_servers:
+    gridftp-hadoop:
+        ip_address: '192.12.238.147'
+        port: '2811'
+        protocol: 'TCP'
+        lb_algo: 'wlc'
+        lb_kind: 'DR'
+        tcp_check:
+            connect_timeout: 3
+        delay_loop: '10'
+        real_servers:
+            - ip_address: '192.12.238.129'
+              port: '2811'
+            - ip_address: '192.12.238.130'
+              port: '2811'
+            - ip_address: '192.12.238.131'
+              port: '2811'
+            - ip_address: '192.12.238.132'
+              port: '2811'
+            - ip_address: '192.12.238.133'
+              port: '2811'
+            - ip_address: '192.12.238.134'
+              port: '2811'
+            - ip_address: '192.12.238.135'
+              port: '2811'
+            - ip_address: '192.12.238.136'
+              port: '2811'
+            - ip_address: '192.12.238.137'
+              port: '2811'
+            - ip_address: '192.12.238.138'
+              port: '2811'
+            - ip_address: '192.12.238.139'
+              port: '2811'
+            - ip_address: '192.12.238.140'
+              port: '2811'
+            - ip_address: '192.12.238.141'
+              port: '2811'
+            - ip_address: '192.12.238.142'
+              port: '2811'
+            - ip_address: '192.12.238.143'
+              port: '2811'
+            - ip_address: '192.12.238.144'
+              port: '2811'
+

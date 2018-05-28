@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# RunGetSMARTResults      
+#
+# REVISION HISTORY
+# Created.                                  08/24/2012  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_v);
+         
+getopts("hv");
+my $verbose = $opt_v;         
+
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   print " Usage: $0 ...\n";
+   exit;
+}
+         
+#
+# Code goes here...
+#
+my $lnxclient;
+foreach my $host (sort @ARGV) {
+  $lnxclient .= "$host ";
+}
+my $cmdOpt;
+$cmdOpt = "-v" if $verbose;
+system("/nfs/heplocal/WWW/html/computing/ClusterStatus/SMART-Tests/GetSMARTResultsRAID -v 1 -l > /dev/null 2>&1");
+exit;
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+         
+         

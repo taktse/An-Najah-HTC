@@ -1,0 +1,3 @@
+---
+lvs::config:           'keepalived.conf-gridftp03'
+iptables::config_file: 'iptables-gridftp'

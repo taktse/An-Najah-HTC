@@ -1,0 +1,20 @@
+---
+pkg_group::lsb:
+ - 'redhat-lsb'
+ - 'redhat-lsb-core'
+ - 'redhat-lsb-compat'
+ - 'redhat-lsb-graphics'
+ - 'redhat-lsb-printing'
+
+iptables::package: 'iptables'
+
+pkg_group::man-db: 'man-pages-es'
+
+autofs::nfs_server: 'nfs'
+autofs::nfs_mountd: 'nfslock'
+
+osg_repos::osg_repo: 'https://repo.grid.iu.edu/osg/3.3/osg-3.3-el6-release-latest.rpm'
+osg_repos::epel_repo: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-.noarch.rpm'
+
+localfiles::config::sshd_config: 'sshd_config-RHEL6'
+localfiles::config::netconfig:   'netconfig-RHEL6'

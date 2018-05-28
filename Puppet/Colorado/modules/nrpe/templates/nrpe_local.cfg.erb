@@ -1,0 +1,165 @@
+# -*- conf-unix -*-
+
+# system
+command[check_kernel] = /bin/uname -a
+command[check_load] = <%= @nrpe_plugins %>/check_load -w 15,10,5  -c 30,25,20
+command[check_load_hot] = <%= @nrpe_plugins %>/check_load -w 30,20,10 -c 60,50,40
+command[check_load_hot_and_spicy] = <%= @nrpe_plugins %>/check_load -w 60,40,20 -c 120,100,80
+command[check_memory] = <%= @nrpe_plugins %>/check_memory -C -u -w 75 -c 90
+command[check_memory_hot] = <%= @nrpe_plugins %>/check_memory -C -u -w 80 -c 95
+command[check_memory_hot_and_spicy] = <%= @nrpe_plugins %>/check_memory -C -u -w 85 -c 98
+command[check_process] = <%= @nrpe_plugins %>/check_procs -w 500 -c 750
+command[check_process_hot] = <%= @nrpe_plugins %>/check_procs -w 1000 -c 1500
+command[check_process_hot_and_spicy] = <%= @nrpe_plugins %>/check_procs -w 2000 -c 3000
+command[check_swap] = <%= @nrpe_plugins %>/check_swap -w 20% -c 10%
+command[check_swap_hot] = <%= @nrpe_plugins %>/check_swap -w 70% -c 50%
+command[check_swap_hot_and_spicy] = <%= @nrpe_plugins %>/check_swap -w 70% -c 70%
+command[check_time] = <%= @nrpe_plugins %>/check_ntp_peer -H localhost
+command[check_users] = <%= @nrpe_plugins %>/check_users -w 10 -c 20
+command[check_users_hot] = <%= @nrpe_plugins %>/check_users -w 25 -c 50
+command[check_users_hot_and_spicy] = <%= @nrpe_plugins %>/check_users -w 50 -c 100
+command[check_zombie_process] = <%= @nrpe_plugins %>/check_procs -w 5 -c 10 -s Z
+
+# space
+command[check_disk] = <%= @nrpe_plugins %>/check_disk -w 20% -c 10% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+command[check_disk_hot] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+command[check_disk_hot_and_spicy] = <%= @nrpe_plugins %>/check_disk -w 5% -c 1% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+
+# inode
+command[check_inode] = <%= @nrpe_plugins %>/check_disk -W 20% -K 10% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+command[check_inode_hot] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+command[check_inode_hot_and_spicy] = <%= @nrpe_plugins %>/check_disk -W 5% -K 1% -A -I 'var/lib/docker/containers'<% @check_disk_exclude_type.each do |type| -%> -X <%= type %><% end %>
+
+# space (legacy)
+command[check_boot] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /boot
+command[check_home] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /home
+command[check_mnt_space1] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /mnt/space1
+command[check_opt] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /opt
+command[check_opt_appdynamics] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /opt/appdynamics
+command[check_root] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /
+command[check_space1] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /mnt/space1
+command[check_srv] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /srv
+command[check_tmp] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /tmp
+command[check_usr] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /usr
+command[check_usr_local] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /usr/local
+command[check_usr_local_neolane] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /usr/local/neolane
+command[check_var] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var
+command[check_var_lib] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/lib
+command[check_var_lib_elasticsearch] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/lib/elasticsearch
+command[check_var_lib_nginx] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/lib/nginx
+command[check_var_lib_nodejs] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/lib/nodejs
+command[check_var_lib_varnish] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/lib/varnish
+command[check_var_log] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/log
+command[check_var_log_elasticsearch] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/log/elasticsearch
+command[check_var_tmp] = <%= @nrpe_plugins %>/check_disk -w 10% -c 5% -p /var/tmp
+
+# inode (legacy)
+command[check_inodes_boot] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /boot
+command[check_inodes_home] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /home
+command[check_inodes_mnt_space1] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /mnt/space1
+command[check_inodes_opt] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /opt
+command[check_inodes_opt_appdynamics] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /opt/appdynamics
+command[check_inodes_root] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /
+command[check_inodes_space1] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /mnt/space1
+command[check_inodes_srv] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /srv
+command[check_inodes_tmp] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /tmp
+command[check_inodes_usr] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /usr
+command[check_inodes_usr_local] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /usr/local
+command[check_inodes_usr_local_neolane] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /usr/local/neolane
+command[check_inodes_var] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var
+command[check_inodes_var_lib] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/lib
+command[check_inodes_var_lib_elasticsearch] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/lib/elasticsearch
+command[check_inodes_var_lib_nginx] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/lib/nginx
+command[check_inodes_var_lib_nodejs] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/lib/nodejs
+command[check_inodes_var_lib_varnish] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/lib/varnish
+command[check_inodes_var_log] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/log
+command[check_inodes_var_log_elasticsearch] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/log/elasticsearch
+command[check_inodes_var_tmp] = <%= @nrpe_plugins %>/check_disk -W 10% -K 5% -p /var/tmp
+
+# Matt daemon
+command[check_amavisd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'amavisd'
+command[check_apache2] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'apache2'
+command[check_apache] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'apache2'
+command[check_aped] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'aped'
+command[check_appdynamics_controller] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'java' -a 'appserver-cli.jar'
+command[check_appdynamics_dbagent] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'java' -a 'db-agent.jar'
+command[check_asterisk] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'asterisk'
+command[check_bgpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'bgpd'
+command[check_clamd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'clamd'
+command[check_collectd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'collectd'
+command[check_collectdmon] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'collectdmon'
+command[check_cron] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'cron'
+command[check_dhcpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'dhcpd'
+command[check_dovecot] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'dovecot'
+command[check_dovecot_auth] = <%= @nrpe_plugins %>/check_procs -w 1:150 -c 1:200 -C 'dovecot-auth'
+command[check_dovecot_imap_login] = <%= @nrpe_plugins %>/check_procs -w 1:600 -c 1:800 -C 'imap-login'
+command[check_elasticsearch] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'java' -a 'elasticsearch'
+command[check_freshclam] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'freshclam'
+command[check_grafana] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'grafana-server'
+command[check_httpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'httpd'
+command[check_incrond] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'incrond'
+command[check_keepalived] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'keepalived'
+command[check_lighttpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'lighttpd'
+command[check_memcached] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'memcached'
+command[check_mysqld] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'mysqld'
+command[check_nagios] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nagios3'
+command[check_named] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'named'
+command[check_netdata] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'netdata'
+command[check_nfsd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nfsd'
+command[check_nginx] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nginx'
+command[check_nlserver] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver'
+command[check_nlserver_inmail] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'inMail'
+command[check_nlserver_mta] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'mta'
+command[check_nlserver_mtachild] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'mtachild'
+command[check_nlserver_runwf] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'runwf'
+command[check_nlserver_stat] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'stat'
+command[check_nlserver_syslogd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'syslogd'
+command[check_nlserver_trackinglogd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'trackinglogd'
+command[check_nlserver_watchdog] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'watchdog'
+command[check_nlserver_web] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'web'
+command[check_nlserver_wfserver] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nlserver' -a 'wfserver'
+command[check_node] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'node'
+command[check_nrpe] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'nrpe'
+command[check_ntpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'ntpd'
+command[check_opensips] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'opensips'
+command[check_openvpn] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'openvpn'
+command[check_ospfd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'ospfd'
+command[check_pdns_recursor] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'pdns_recursor'
+command[check_pdns_server] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'pdns_server'
+command[check_php_fpm] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'php-fpm'
+command[check_postmaster] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'postgres'
+command[check_postmaster_autovacuum] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'autovacuum'
+command[check_postmaster_checkpointer] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'checkpointer'
+command[check_postmaster_logger] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'logger'
+command[check_postmaster_stats] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'stats'
+command[check_postmaster_wal] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'wal'
+command[check_postmaster_writer] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'postmaster' -a 'writer'
+command[check_pureftpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -a 'pure-ftpd'
+command[check_radiusd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'radiusd'
+command[check_redis_server] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'redis-server'
+command[check_saslauthd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'saslauthd'
+command[check_sendmail] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'sendmail'
+command[check_slapd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'slapd'
+command[check_smtpd] = <%= @nrpe_plugins %>/check_procs -w 5: -c 5: -C 'smtpd'
+command[check_snmpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'snmpd'
+command[check_spamd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'spamd'
+command[check_sshd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'sshd'
+command[check_unbound] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'unbound'
+command[check_varnishd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'varnishd'
+command[check_vsftpd] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'vsftpd'
+command[check_zebra] = <%= @nrpe_plugins %>/check_procs -w 1: -c 1: -C 'zebra'
+
+# service
+command[check_ftp] = <%= @nrpe_plugins %>/check_ftp -H localhost -p 21
+command[check_http] = <%= @nrpe_plugins %>/check_http -H localhost -p 80
+command[check_https] = <%= @nrpe_plugins %>/check_http -H localhost -p 443 -S
+command[check_imap] = <%= @nrpe_plugins %>/check_imap -H localhost -p 143
+command[check_imaps] = <%= @nrpe_plugins %>/check_imap -H localhost -p 993 -S
+command[check_pop] = <%= @nrpe_plugins %>/check_pop -H localhost -p 110
+command[check_pops] = <%= @nrpe_plugins %>/check_pop -H localhost -p 995 -S
+command[check_rpc_mountd_tcp] = <%= @nrpe_plugins %>/check_rpc -H localhost -C mountd -t
+command[check_rpc_mountd_udp] = <%= @nrpe_plugins %>/check_rpc -H localhost -C mountd -u
+command[check_rpc_nfs_tcp] = <%= @nrpe_plugins %>/check_rpc -H localhost -C nfs -t
+command[check_rpc_nfs_udp] = <%= @nrpe_plugins %>/check_rpc -H localhost -C nfs -u
+command[check_smtp] = <%= @nrpe_plugins %>/check_smtp -H localhost -p 25
+# EOF

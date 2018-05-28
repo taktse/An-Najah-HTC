@@ -1,0 +1,8 @@
+---
+:nano_editor: "nano"
+
+pkg_group::lsb:
+ - 'redhat-lsb'
+ - 'redhat-lsb-what-the-heck'
+
+

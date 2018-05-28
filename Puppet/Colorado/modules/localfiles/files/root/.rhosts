@@ -1,0 +1,21 @@
+#
+#  roots copy of .rhosts
+#  This file should only be edited in the netadm source directory
+#
+#  Modified:                              961126  d.johnson
+#
+pizero.Colorado.edu     root
+windom.colorado.edu     root
+corfu.colorado.edu      root
+backup01.colorado.edu   root
+hendrix.colorado.edu    root
+lnxdata304.colorado.edu root
+hepse01.colorado.edu    root
+lnxdata308.colorado.edu root
+heposg02.colorado.edu   root
+
+
+
+backup02.colorado.edu   root
+backup03.colorado.edu   root
+coltrane.colorado.edu   root

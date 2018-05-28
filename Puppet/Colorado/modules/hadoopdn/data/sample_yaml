@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for hadoopdn
+# You can overwrite these data in any of the system hiera files
+
+hadoopdn::parameter_name:              'value'

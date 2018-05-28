@@ -1,0 +1,12 @@
+---
+
+datadisks::
+ - 'heplvs101'
+
+datadisks::heplvs101::mount: '/amd/heplvs101/nfs/heplvs101'
+datadisks::heplvs101::label: 'HEPLVS101'
+datadisks::heplvs101::export: '@allhosts(rw,async,no_root_squash)'
+datadisks::heplvs101::type:   'xfs'
+
+nfs::args_rpc_nfsd_count: 'RPCNFSDCOUNT=16'
+

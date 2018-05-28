@@ -1,0 +1,7 @@
+---
+syslogpkg: rsyslog
+
+osg::osg_ca_certs_updater:: 'osg-ca-certs-updater'
+localfiles::config::sshd_config: 'sshd_config-RHEL7'
+localfiles::config::netconfig:   'netconfig-RHEL7'
+

@@ -1,0 +1,4 @@
+---
+iptables::config_file: 'iptables-culogin'
+localfiles::symlink::/var/spool/mail: 'undefined'
+localfiles::config::sshd_config: 'sshd_config-culogin'

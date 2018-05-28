@@ -1,0 +1,10 @@
+---
+#localfiles::symlink_to::usr_local:        '/dev/null'
+#localfiles::symlink_to::/usr/local:       '/dev/null'
+#localfiles::symlink_to::/var/spool/mail:  '/dev/null'
+#localfiles::symlink_to::var_spool_mail:   '/dev/null'
+
+#
+# Don't turn off ipv6 for this host
+#
+localfiles::config::90-cuhep-no-ipv6.conf:   '90-cuhep-with-ipv6.conf'

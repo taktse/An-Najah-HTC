@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for iptables
+# You can overwrite these data in any of the system hiera files
+
+iptables::parameter_name:              'value'

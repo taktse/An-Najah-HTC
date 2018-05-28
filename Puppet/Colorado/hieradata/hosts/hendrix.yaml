@@ -1,0 +1,3 @@
+---
+# iptables::config_file: 'iptables-cmsprxy'
+gnome::desktop: 'absent'

@@ -1,0 +1,59 @@
+
+
+#
+#
+# Install a configuration file
+#
+define install_config_file (
+    String $source_file = hiera("$caller_module_name::config::$name", "$title"),
+    String $dest_file   = $title,
+    String $directory = 'etc',
+    String $mode = '0644',
+  ) {
+     if $source_file != 'undefined' {
+       file { "/${directory}/${dest_file}":
+         ensure  => file,
+         replace => true,
+         owner   => 'root',
+         group   => 'root',
+         mode    => "${mode}",
+         source => "puppet:///modules/$caller_module_name/${directory}/${source_file}",
+       }
+     }
+  }
+
+#
+# Create a symbolic link
+#
+define create_symlink (
+  String $from,
+  String $to,
+ ) {
+     if $from != 'undefined' {
+       $link_from = hiera("$caller_module_name::symlink::$title",     "$from")
+       $link_to   = hiera("$caller_module_name::symlink_to::$title",  "$to")
+       file { "$link_from":
+         ensure => link,
+         target => "$link_to",
+       }    
+   }
+}
+
+#
+# Create a directory
+#
+define create_directory (
+   String $directory = hiera("$caller_module_name::directory::$name", "$title"),
+   String $owner = 'root',
+   String $group = 'root',
+   String $mode  = '0755',
+ ) {
+     if $directory != 'undefined' {
+       file { "$directory":
+         ensure => directory,
+         owner  => "${owner}",
+         group  => "${group}",
+         mode   => "${mode}",
+       }
+   }
+}

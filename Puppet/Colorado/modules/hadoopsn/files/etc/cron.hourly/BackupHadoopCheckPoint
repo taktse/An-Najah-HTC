@@ -1,0 +1,31 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# BackupHadoopCheckPoint      
+#
+# REVISION HISTORY
+# Created.                                  11/07/2011  doug johnson
+#-------------------------------------------------------------------
+
+set hostname = `hostname -s`
+set hadoopCheckPointDir = "/mnt/checkpoint/ /usr/local/hadoop/checkpoint /hadoop/checkpoint/"
+set outputDirs          = "/nfs/backup01/hadoop/${hostname} /nfs/backup02/hadoop/${hostname} /nfs/backup03/hadoop/${hostname}"
+
+set outputFile = /sge-batch/checkpoint-`date +%a-%H`.tar.gz
+echo `date`" Creating $outputFile"                   >& /dev/null
+tar -czvf $outputFile $hadoopCheckPointDir           >& /dev/null
+echo `date`" Finished $outputFile"                   >& /dev/null
+foreach dir ( $outputDirs )            
+   echo `date`" Copying $outputFile $dir/"           >& /dev/null
+   cp $outputFile $dir/                              >& /dev/null
+   ls -alh $dir/`basename $outputFile`               >& /dev/null
+end
+
+rm $outputFile
+exit
+
+

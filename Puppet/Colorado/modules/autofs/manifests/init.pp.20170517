@@ -1,0 +1,112 @@
+# Class: autofs
+# ===========================
+#
+# Full description of class autofs here.
+#
+# Parameters
+# ----------
+#
+# Document parameters here.
+#
+# * `sample parameter`
+# Explanation of what this parameter affects and what it defaults to.
+# e.g. "Specify one or more upstream ntp servers as an array."
+#
+# Variables
+# ----------
+#
+# Here you should define a list of variables that this module would require.
+#
+# * `sample variable`
+#  Explanation of how this variable affects the function of this class and if
+#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
+#  External Node Classifier as a comma separated list of hostnames." (Note,
+#  global variables should be avoided in favor of class parameters as
+#  of Puppet 2.6.)
+#
+# Examples
+# --------
+#
+# @example
+#    class { 'autofs':
+#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    }
+#
+# Authors
+# -------
+#
+# Author Name <author@domain.com>
+#
+# Copyright
+# ---------
+#
+# Copyright 2017 Your name here, unless otherwise noted.
+#
+
+define install_autofs_configs (
+    String $filename = $title,
+    String $directory = 'etc',
+    String $mode = '0644',
+  ) {
+      file { "/${directory}/${filename}":
+         notify  => Service['autofs'],
+         require => Package['autofs'],
+         ensure  => file,
+         replace => true,
+         owner   => 'root',
+         group   => 'root',
+         mode    => "${mode}",
+         source => "puppet:///modules/localfiles/${directory}/${filename}",
+     }
+  }
+
+
+class autofs {
+
+   install_autofs_configs{'auto.master':}
+   install_autofs_configs{'auto.axpbase':} 
+   install_autofs_configs{'auto.axpsub':}  
+   install_autofs_configs{'auto.batch':}   
+   install_autofs_configs{'auto.misc':}    
+   install_autofs_configs{'auto.nfs':}     
+
+   package {'rpcbind':
+       ensure => installed,
+   } 
+
+   package {'nfs-utils':
+       ensure => installed,
+   } 
+
+   package {'autofs':
+       require => Package['rpcbind', 'nfs-utils'],
+       ensure => installed,
+   } 
+
+   service {'rpcbind':
+       require => Package['rpcbind'],
+       ensure => running,
+   } 
+
+   $nfs_server = hiera("nfs_server", 'nfs-server')
+   service {'nfs-server':
+       name   => $nfs_server,
+       require => Package['nfs-utils'],
+       ensure => running,
+       enable => true,
+   } 
+
+   $nfs_mountd = hiera("nfs_mountd", 'nfs-mountd')
+   service {'nfs-mountd':
+       name   => $nfs_mountd,
+       require => Package['nfs-utils'],
+       ensure => running,
+       enable => true,
+   } 
+
+   service {'autofs': 
+       require => Service['rpcbind', 'nfs-server', 'nfs-mountd'],
+       ensure => running,
+       enable => true,
+   }
+}

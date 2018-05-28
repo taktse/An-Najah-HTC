@@ -1,0 +1,12 @@
+---
+
+datadisks::
+ - 'backup01'
+
+datadisks::backup01::mount: '/amd/backup01/nfs/backup01'
+datadisks::backup01::label: 'BACKUP01'
+datadisks::backup01::export: '@allhosts(rw,async,no_root_squash)'
+datadisks::backup01::type:   'xfs'
+
+nfs::args_rpc_nfsd_count: 'RPCNFSDCOUNT=16'
+

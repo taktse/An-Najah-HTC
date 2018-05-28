@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for autofs
+# You can overwrite these data in any of the system hiera files
+
+autofs::parameter_name:              'value'

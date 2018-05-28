@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CreateModuleHieraDefault      
+#
+# REVISION HISTORY
+# Created.                                  09/19/2017  doug johnson
+#-------------------------------------------------------------------
+my $fullname = $0;
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_m);
+         
+getopts("hm:");
+         
+my $moduleName = $opt_m;
+chomp(my $dirName = `dirname $fullname`);
+
+my $modulesDir = "/usr/local/adm/puppet/modules";
+my $hieraTemplate = "$modulesDir/hiera_template.yaml";
+
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h or $moduleName =~ /^$/) {
+   system("perldoc $fullname");
+   exit;
+}
+
+#
+# The module name is passed with the -m option.
+# We assume modules are in /usr/local/adm/puppet/modules/$module_name
+#
+system("sed s'/%MODULENAME%/$moduleName/' $dirName/hiera_template.yaml > $modulesDir/$moduleName/hiera.yaml");
+system("mkdir -p $modulesDir/$moduleName/data/os/RedHat $modulesDir/$moduleName/data/os/Debian $modulesDir/$moduleName/files/etc");
+system("touch $modulesDir/$moduleName/data/common.yaml");
+system("sed s'/%MODULENAME%/$moduleName/'g $dirName/sample_yaml > $modulesDir/$moduleName/data/sample_yaml");
+
+exit;
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+
+=head1 
+
+Syntax:
+
+         CreateModuleHieraDefault [-h]
+
+EXAMPLES:
+
+=cut

@@ -1,0 +1,27 @@
+---
+ntp::autoupdate: true
+ntp::enable: true
+ntp::interfaces:
+ - '127.0.0.1'
+ - '192.168.31.103'
+ntp::restrict:
+ - 'default kod nomodify notrap nopeer noquery'
+ - '-6 default kod nomodify notrap nopeer noquery'
+ - '-6 ::1'
+ - '192.168.0.0/16'
+ - '128.138.133.0/24'
+ - '192.12.238.128/27'
+ - '-6 fe80::'
+ntp::servers:
+  - 128.138.140.44    iburst
+  - 128.138.145.1     iburst
+  - 128.138.96.1      iburst
+  - 0.us.pool.ntp.org iburst
+  - 1.us.pool.ntp.org iburst
+  - 2.us.pool.ntp.org iburst
+  - 3.us.pool.ntp.org iburst
+
+
+
+
+

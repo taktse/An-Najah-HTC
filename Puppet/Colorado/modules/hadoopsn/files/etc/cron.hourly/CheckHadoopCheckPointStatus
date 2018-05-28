@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CheckHadoopCheckPointStatus      
+#
+# REVISION HISTORY
+# Created.                                  12/22/2010  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+
+my $debug = 0;
+$debug = 1 if $ARGV[0] eq '-d';
+chomp(my $hour = `date +%H`);
+if($hour == 12) {
+  $debug = 1;
+}
+
+chomp(my $hostname = `hostname -s`);
+my @checkPointDirs;
+if($hostname =~ /hadoopsn/) {
+  @checkPointDirs    = ("/usr/local/hadoop/checkpoint", "/hadoop/checkpoint", "/mnt/checkpoint");
+} else {
+  @checkPointDirs    = ("/usr/local/hadoop/checkpoint");
+}
+
+my @checkPointSubDirs = ("current", "previous.checkpoint");
+my @checkPointSubDirs = ("current", "lastcheckpoint.tmp");
+my @checkPointSubDirs = ("current");
+my %timeLimits        = ("current"             => '5000',
+			 "previous.checkpoint" => '8000',
+			 "lastcheckpoint.tmp"  => '8000');
+my @checkPointFiles = ("edits",  "fsimage", "VERSION", "fstime");
+my @checkPointFiles = ("VERSION");
+
+my $nowTime   = time;
+my $status    = 0;
+my $retries   = 10;
+my $retryWait = 30;
+my $dirListing;
+foreach my $checkPointDir (@checkPointDirs) {
+  $dirListing .= `ls -alF $checkPointDir`;
+  foreach my $checkPointSubDir (@checkPointSubDirs) {
+    foreach my $checkPointFile (@checkPointFiles) {
+      my $file = "$checkPointDir/$checkPointSubDir/$checkPointFile";
+      my $retry = 0;
+      while(! -e "$file" && $retry < $retries) {
+	chomp(my $date = `date`);
+	print "$date $file does not exist\n";
+	$retry++;
+	sleep($retryWait);
+      }
+      chomp(my $modTime = `stat -c %Y $file`);
+      my $ageCheckPointFile = $nowTime - $modTime;
+      if($debug) {
+	printf " %-60.60s $ageCheckPointFile secs\n",   "$file" ;
+      }
+      if($ageCheckPointFile > $timeLimits{$checkPointSubDir}) {
+	print " ERRROR: $file has not been updated for over $timeLimits{$checkPointSubDir}\n";
+	printf " %-60.60s $ageCheckPointFile secs\n",   "$file" ;
+	system("/bin/ls -alF $checkPointDir");
+	print "------ Directory listings: $checkPointDir -------\n";
+	system("/bin/ls -alF $checkPointDir/$checkPointSubDir");
+	$status = 1;
+      }
+    }
+  }
+}
+
+print $dirListing if $debug;
+
+exit $status;
+

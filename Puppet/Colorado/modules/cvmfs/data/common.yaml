@@ -1,0 +1,32 @@
+---
+#
+# Define hiera data for cvmfs
+# You can overwrite these data in any of the system hiera files
+#
+cvmfs::cvmfs_repositories:       "echo $(ls /cvmfs)|tr ' ' ,"
+cvmfs::cvmfs_ensure:             installed
+cvmfs::cvmfs_enable:              enable
+cvmfs::cvmfs_package:            'osg-oasis'
+cvmfs::cache_base_dir:           '/var/cache/cvmfs'
+cvmfs::quota_limit:              '20000'
+# cvmfs::http_proxy:             'DIRECT'
+cvmfs::http_proxy:               'http://cmsprxy01.colorado.edu:3128|http://cmsprxy02.colorado.edu:3128|http://cmsprxy03.colorado.edu:3128'
+cvmfs::config_path:              '/etc/cvmfs/default.local'
+cvmfs::config_template:          'cvmfs/default.local.erb'
+cvmfs::config_ensure:            present
+cvmfs::fuse_config:              '/etc/fuse.conf'
+cvmfs::fuse_config_line:         'user_allow_other'
+cvmfs::auto_master:              '/etc/auto.master'
+cvmfs::auto_master_line:         '/cvmfs /etc/auto.cvmfs'
+cvmfs::autofs_ensure:             running
+cvmfs::autofs_enable:             true
+
+cvmfs::cms_site_config:           '/etc/cvmfs/config.d/cms.cern.ch.conf'
+cvmfs::cms_site_config_ensure:     present
+cvmfs::cms_site_config_template:  'cvmfs/cms.cern.ch.conf.erb'
+
+cvmfs::cms_site_local:           '/etc/cvmfs/config.d/cms.cern.ch.local'
+cvmfs::cms_site_local_ensure:     present
+cvmfs::cms_site_local_template:  'cvmfs/cms.cern.ch.local.erb'
+
+cvmfs::cms_site:                  'T3_US_Colorado'

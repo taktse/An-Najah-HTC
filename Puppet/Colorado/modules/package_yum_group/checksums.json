@@ -1,0 +1,15 @@
+{
+  "Gemfile": "b30709e0c5ff5bc25d35e82fff2b46d6",
+  "Makefile": "17d84c9c5c4e2bf653413f4b30026571",
+  "README.md": "81a495b50ded7e6cf18db2dc949e1841",
+  "Rakefile": "3c65c0650e68771854036fbe67fb0f5d",
+  "examples/install.pp": "3e5f88af00dbdb82cfe0a86c2107c3fd",
+  "examples/remove.pp": "81ceb7be9227d4ca012b402796927fe6",
+  "lib/puppet/provider/package/yum_group.rb": "a800163f02ad40b76c588cd7821f9d13",
+  "metadata.json": "0570b3dc35504a348fc30247f50a4ffa",
+  "spec/acceptance/init.bats": "01c8ee6ee7ca37b05584945c99b7f9a3",
+  "spec/acceptance/init__before.bats": "3d06f6854c5fb1e5717364eb813fe118",
+  "spec/acceptance/init__setup.sh": "5085ce8fcaf62634db37041c702b5208",
+  "spec/classes/init_spec.rb": "a7b47bb62142b86fba943fbbbe2e5be8",
+  "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc"
+}

@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for %MODULENAME%
+# You can overwrite these data in any of the system hiera files
+
+%MODULENAME%::parameter_name:              'value'

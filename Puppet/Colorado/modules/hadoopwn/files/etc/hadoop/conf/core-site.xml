@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://hadoopnn:9000</value>
+  </property>
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/mnt/hadoopnn/scratch</value>
+  </property>
+  <property>
+    <name>dfs.umaskmode</name>
+    <value>022</value>
+  </property>
+  <property>
+    <name>io.bytes.per.checksum</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>hadoop.log.dir</name>
+    <value>/var/log/hadoop</value>
+  </property>
+  <property>
+    <name>hadoop.log.dir</name>
+    <value>/var/log/hadoop</value>
+  </property>
+  <property>
+    <name>dfs.datanode.scan.period.hours</name>
+    <value>168</value>
+    <description>The total time allowed to complete a datanode block scan.
+    </description>
+  </property>
+</configuration>

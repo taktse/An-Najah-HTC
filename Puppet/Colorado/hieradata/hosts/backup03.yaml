@@ -1,0 +1,12 @@
+---
+
+datadisks::
+ - 'backup03'
+
+datadisks::backup03::mount: '/amd/backup03/nfs/backup03'
+datadisks::backup03::label: 'BACKUP03'
+datadisks::backup03::export: '@allhosts(rw,async,no_root_squash) capa.colorado.edu(rw,async,no_root_squash) capa01.colorado.edu(rw,async,no_root_squash) capa02.colorado.edu(rw,async,no_root_squash) gridftp10.colorado.edu(rw,async,no_root_squash) trongsa.colorado.edu(rw,async,no_root_squash)'
+datadisks::backup03::type:   'xfs'
+
+nfs::args_rpc_nfsd_count: 'RPCNFSDCOUNT=16'
+

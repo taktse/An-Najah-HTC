@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for datadisks
+# You can overwrite these data in any of the system hiera files
+
+datadisks::parameter_name:              'value'

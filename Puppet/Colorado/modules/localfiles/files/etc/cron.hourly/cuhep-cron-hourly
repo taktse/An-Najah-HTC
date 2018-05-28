@@ -1,0 +1,37 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# cuhep-cron-hourly      
+#
+# REVISION HISTORY
+# Created.                                  08/10/2017  doug johnson
+#-------------------------------------------------------------------
+
+
+puppetDir="/usr/local/adm/puppet/environments/production/modules/localfiles/files"
+
+rsync -a $puppetDir/etc/hosts                 /etc/hosts                 > /dev/null 2>&1
+rsync -a $puppetDir/etc/hosts.equiv           /etc/hosts.equiv           > /dev/null 2>&1
+rsync -a $puppetDir/etc/auto.nfs              /etc/auto.nfs              > /dev/null 2>&1
+
+rsync -a $puppetDir/etc/ssh/shosts.equiv      /etc/ssh/shosts.equiv      > /dev/null 2>&1
+rsync -a $puppetDir/etc/ssh/ssh_known_hosts   /etc/ssh/ssh_known_hosts   > /dev/null 2>&1
+
+if [ -f /etc/krb5.keytab ]; then
+   host=`hostname`
+   rsync -a /etc/krb5.keytab $puppetDir/etc/krb5.keytab-$host > /dev/null 2>&1 
+fi
+
+rsync -a $puppetDir/etc/cron.hourly/CleanBatchSpace   /etc/cron.hourly/CleanBatchSpace        > /dev/null 2>&1 
+rsync -a $puppetDir/etc/cron.hourly/CUTmpWatch        /etc/cron.hourly/CUTmpWatch        > /dev/null 2>&1 
+rsync -a $puppetDir/etc/cron.hourly/RunBatchWatch     /etc/cron.hourly/RunBatchWatch     > /dev/null 2>&1 
+rsync -a $puppetDir/etc/cron.hourly/cuhep-cron-hourly /etc/cron.hourly/cuhep-cron-hourly > /dev/null 2>&1 
+
+
+exit
+
+

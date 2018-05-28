@@ -1,0 +1,9 @@
+#-----------------------------------------------------------==ADM==
+# This file has been Customized for CUHEP by staff
+# to run in the pizero-subnet environment.
+# auto.axp.sub            last modified:     04/09/2013  doug johnson
+#------------------------------------------------------------------
+
+*       ${host}:/amd/${host}/axp/${host}/&
+
+

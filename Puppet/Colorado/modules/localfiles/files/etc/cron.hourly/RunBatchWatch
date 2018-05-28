@@ -1,0 +1,15 @@
+#!/bin/bash
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# RunBatchWatch      
+#
+# REVISION HISTORY
+# Created.                                  03/10/2018  doug johnson
+#-------------------------------------------------------------------
+
+/usr/local/adm/bin/BatchWatch >> /sge-batch/BatchWatch.log 2>&1
+exit

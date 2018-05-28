@@ -1,0 +1,11 @@
+---
+# Yaml/hiera data for osg-certs
+
+osg_ca_certs::osg_ca_certs:                'osg-ca-certs'
+osg_ca_certs::package_version:             'latest'
+osg_ca_certs::osg_ca_certs_updater:        'osg-ca-certs-updater'
+osg_ca_certs::osg_ca_certs_updater_cron:   'osg-ca-certs-updater-cron'
+osg_ca_certs::enable_ca_updater:           true
+osg_ca_certs::ensure_enable_ca_updater:    'running'
+
+

@@ -1,0 +1,4 @@
+---
+iptables::config_file: 'iptables-cmsprxy'
+localfiles::config::sshd_config: 'sshd_config-cmsprxy'
+yp.conf:: 'yp.conf-cmsprxy'

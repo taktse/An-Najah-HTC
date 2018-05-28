@@ -1,0 +1,96 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# BatchWatch      
+#
+# REVISION HISTORY
+# Created.                                  03/09/2018  doug johnson
+#-------------------------------------------------------------------
+my $fullname = $0;
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+use File::stat;
+our($opt_h);
+         
+getopts("h");
+         
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   system("perldoc $fullname");
+   exit;
+}
+         
+
+chomp(my $host = `hostname`);
+exit if $host !~ /^lnxfarm/;
+my $maxSize = 55000;
+
+chomp(my $df = `df -h /sge-batch/`);
+Print("$0 Starting on $host");
+Print("Searching for files greater than $maxSize MB");
+Print("$df");
+my $maxSize = $maxSize * 1000000.;
+my $total;
+my $count = 0;
+open(FIND, "/usr/bin/find /sge-batch/ -type f -xdev -print|") or die " What the heck:: /usr/bin/find /sge-batch/ -xdev -print\n";
+
+while(chop(my $input = <FIND>)) {
+  my $st = stat($input);
+  if($st->size > $maxSize) {
+    $count++;
+    my $fsize = sprintf("%5.1fM", $st->size/1024./1024.);
+    Print("  $fsize   $input");
+    $total += $st->size;
+    system("cat /dev/null > $input");
+  }
+}
+
+$total = sprintf("%8f", $total/1024/1024);
+Print(" Found $count large files. Total usage:  $total MB");
+chomp(my $df = `df -h /sge-batch/`);
+Print("$df");
+Print("$0 Finished on $host");
+
+exit;
+
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+
+=head1 
+
+Syntax:
+
+         BatchWatch [-h]
+
+EXAMPLES:
+
+=cut
+

@@ -1,0 +1,3 @@
+---
+pkg_group::osg-repo: 'https://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm'
+pkg_group::osg-wn-client: 'wn-client'

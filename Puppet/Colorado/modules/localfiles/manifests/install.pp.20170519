@@ -1,0 +1,126 @@
+
+define install_config_file (
+#    String $filename = hiera("$title", "$title"),
+    String $filename = $title,
+    String $directory = 'etc',
+    String $mode = '0644',
+  ) {
+      file { "/${directory}/${filename}":
+         ensure  => file,
+         replace => true,
+         owner   => 'root',
+         group   => 'root',
+         mode    => "${mode}",
+         source => "puppet:///modules/localfiles/${directory}/${filename}",
+     }
+  }
+
+#
+# Create a symbolic link
+#
+define create_symlink (
+     String $from = "$title",
+     String $to,
+  )
+  {
+    file { "$from":
+        ensure => link,
+        target => "$to",
+  }
+}
+
+define create_directory (
+   String $directory = $name,
+   String $owner = 'root',
+   String $group = 'root',
+   String $mode  = '0755',
+ ) {
+     file { "$directory":
+       ensure => directory,
+       owner  => "${owner}",
+       group  => "${group}",
+       mode   => "${mode}",
+   }
+}
+   
+define motd {
+   $hostname     = $facts['fqdn']
+   $model        = $facts['processors']['models'][0]
+   $number_cores = $facts['processors']['count']
+   $os           = $facts['os']['distro']['description']
+   $kernel       = $facts['kernelrelease']
+   $memory       = $facts['memory']['system']['total']
+   $swap         = $facts['memory']['swap']['total']
+   file {'/etc/motd':
+      mode  => '0644',
+      owner => 'root',
+      group => 'root',
+      content => template('localfiles/motd.erb'),
+  }
+}
+
+
+class localfiles::install inherits localfiles {
+
+
+ install_config_file { 'hosts': }
+ install_config_file { 'nsswitch.conf': }
+ install_config_file { 'resolv.conf': }
+ install_config_file { 'csh.cshrc': }
+ install_config_file { 'csh.login': }
+ install_config_file { 'CUStuff.sh':      directory => "etc/profile.d",}
+ install_config_file { 'CUStuff.csh':     directory => "etc/profile.d",}
+ install_config_file { 'ssh_known_hosts': directory => "etc/ssh",}
+ install_config_file { '.emacs':          directory => "root",}
+ install_config_file { '.bash_profile':   directory => "root",}
+ install_config_file { '.cshrc':          directory => "root",}
+ install_config_file { '.login':          directory => "root",}
+ install_config_file { 'authorized_keys': directory => "root/.ssh", mode => '0600',} 
+
+ install_config_file { 'CleanBatchSpace':,    mode => '0755', directory => "etc/cron.daily",}
+ install_config_file { 'RecordUptime':,       mode => '0755', directory => "etc/cron.daily",}
+ install_config_file { 'RunGetSMARTResults':, mode => '0755', directory => "etc/cron.daily",}
+
+ create_symlink{ '/com-stat':,       to => "/nfs/heplocal/WWW/html/computing/ClusterStatus",}
+ create_symlink{ '/sge-batch':,      to => "/batch/${facts['hostname']}",}
+ create_symlink{ '/usr/local':,      to => "/misc/local",}
+ create_symlink{ '/usr/users':  ,    to => "/nfs/hepusers/users",}
+ create_symlink{ '/usr/users02':,    to => "/nfs/hepusers/users02",}
+ create_symlink{ '/usr/adm':,        to => '/var/log',}
+ create_symlink{ '/usr/spool':,      to => '/var/spool',}
+ create_symlink{ '/var/spool/mail':, to => '/misc/mail',}
+
+#-------------------------------------------------------------------------------------------
+# Create the batch area directory. This should only matter for machines
+# without dedicated partitions. It is historical that the directory is:
+#  /amd/batch/$hostname/batch 
+# This was the mount point when we used the amd automounter and it is
+# used in the auto.batch map file.
+# WARNING: On systems without a dedicated partition this is probably on /
+#
+ create_directory { "/amd":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}/batch":, mode => '0775',}
+ create_directory { "/amd/${facts['hostname']}/batch/${facts['hostname']}":, mode => '1777',}
+#-------------------------------------------------------------------------------------------
+
+#
+#
+#
+ file_line { 'securetty_rsh':
+   path => '/etc/securetty',
+   line => 'rsh',
+ }
+ file_line { 'securetty_rlogin':
+   path => '/etc/securetty',
+   line => 'rlogin',
+ }
+
+#
+# /etc/motd is a special case since it is different on every machine and
+# is built from a template. It should probably be its own module and
+# class: TODO?
+#
+ motd{'motd':}
+
+}

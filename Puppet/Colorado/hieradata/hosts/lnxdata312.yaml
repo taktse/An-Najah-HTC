@@ -1,0 +1,12 @@
+---
+cvmfs::cache_base_dir:           '/batch/lnxdata312/cvmfs'
+
+datadisks::
+ - 'lnxdata312'
+
+datadisks::lnxdata312::mount: '/amd/lnxdata312/nfs/data42'
+datadisks::lnxdata312::label: 'DATA42'
+datadisks::lnxdata312::export: '@allhosts(rw,async,no_root_squash)'
+datadisks::lnxdata312::type:   'xfs'
+
+nfs::args_rpc_nfsd_count: 'RPCNFSDCOUNT=16'

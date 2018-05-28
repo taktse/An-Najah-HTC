@@ -1,0 +1,18 @@
+---
+ntp::autoupdate: true
+ntp::enable: true
+ntp::servers:
+  - 128.138.133.18  iburst
+  - 128.138.133.170 iburst
+  - 192.43.244.18   iburst
+  - 132.163.4.101   iburst
+  - 132.163.4.102   iburst
+  - 132.163.4.103   iburst
+  - 128.138.140.44  iburst
+  - 128.138.145.1   iburst
+  - 128.138.96.1    iburst
+  - 8.8.8.8 iburst
+
+
+
+

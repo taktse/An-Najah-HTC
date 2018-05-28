@@ -1,0 +1,32 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+10.0.0.1       htc180-gw.najah.edu        htc180-gw
+172.16.9.180   htc180.najah.edu           htc180
+
+10.1.0.1        htc-puppet.najah.edu      htc-puppet
+10.1.0.2        htc-cobbler.najah.edu      htc-cobbler
+10.1.0.3        htc-condor.najah.edu      htc-condor
+
+
+10.10.0.181    htc181.najah.edu    htc181
+10.10.0.182    htc182.najah.edu    htc182
+10.10.0.183    htc183.najah.edu    htc183
+10.10.0.184    htc184.najah.edu    htc184
+10.10.0.185    htc185.najah.edu    htc185
+10.10.0.186    htc186.najah.edu    htc186
+10.10.0.187    htc187.najah.edu    htc187
+10.10.0.188    htc188.najah.edu    htc188
+10.10.0.189    htc189.najah.edu    htc189
+10.10.0.190    htc190.najah.edu    htc190
+10.10.0.191    htc191.najah.edu    htc191
+10.10.0.192    htc192.najah.edu    htc192
+10.10.0.193    htc193.najah.edu    htc193
+10.10.0.194    htc194.najah.edu    htc194
+10.10.0.195    htc195.najah.edu    htc195
+10.10.0.196    htc196.najah.edu    htc196
+10.10.0.197    htc197.najah.edu    htc197
+10.10.0.198    htc198.najah.edu    htc198
+10.10.0.199    htc199.najah.edu    htc199
+10.10.0.200    htc200.najah.edu    htc200
+                                             

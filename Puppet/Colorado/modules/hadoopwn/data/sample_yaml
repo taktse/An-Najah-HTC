@@ -1,0 +1,6 @@
+---
+#
+# Define hiera data for hadoopwn
+# You can overwrite these data in any of the system hiera files
+
+hadoopwn::parameter_name:              'value'

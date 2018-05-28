@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# CleanBatchSpace - Cleans up the batch space partitions.
+#                   The default is to remove files not accessed in 
+#                   the past 24 hours. This can be changed by using
+#                   the command line syntax:
+#
+#     % CleanBatchSpace -l nhours
+#
+# REVISION HISTORY
+# Created.                                  01/16/96  D.Johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+
+use strict;
+
+my $debug = 1;
+
+#
+# Set some parameters
+#
+chomp(my $Host  = `/bin/hostname -s`);
+my $Batch       = "/batch/$Host";
+my $MaxDays     = 7;
+if($Host =~ /lnxfarm/) {
+  $MaxDays = 4.0;
+}
+my $maxHours = $MaxDays * 24;
+
+my $Test  = "/bin/echo ' '";
+if($Host =~ /hendrix/) {
+  $Test  = "/bin/echo ' '";
+}
+$Test  = " ";  
+#
+# Check that $Batch exists
+#
+chomp(my $Date = `date`);
+if(! -d "$Batch/") {
+  print " $Date: $Batch does not seem exist\n" if $debug;
+  exit;
+}
+
+#
+# Redirect all output to the file $Batch/Cleanup.log
+#
+if($debug == 0) {
+  close(STDOUT);
+  close(STDERR);
+} else {
+  open(STDOUT, ">> $Batch/Cleanup.log") || die " Unable to append STDOUT to  $Batch/Cleanup.log\n";
+  open(STDERR, ">&STDOUT")              || die " Unable to append STDERR to STDOUT\n";
+}
+
+chomp(my $Date = `date`);
+print " $Date: Removing files not accessed in $MaxDays days or $maxHours hours \n" if $debug;
+print " $Date: Test:  $Test\n" if $debug;
+print " $Date: debug: $debug\n" if $debug;
+
+#
+# Clean the batch area using tmpwatch
+#
+system("touch  $Batch/Cleanup.log");
+system("df -h -l  $Batch/")        if $debug;
+system("/usr/sbin/tmpwatch -x $Batch/cvmfs -x $Batch/AFSCACHE/ -x $Batch/lost+found/ -x $Batch/drjohn -x $Batch/baker -ca $maxHours  $Batch/");
+system("df -h -l  $Batch/");
+
+#
+# Truncated the log file
+#
+close(STDOUT);
+close(STDERR);
+
+system("tail -200 $Batch/Cleanup.log > $Batch/Cleanup.log.tmp; /bin/mv $Batch/Cleanup.log.tmp $Batch/Cleanup.log");
+
+exit;

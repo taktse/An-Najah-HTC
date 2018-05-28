@@ -1,0 +1,17 @@
+version: 5                                                                                                                                         
+defaults:                                                                                                                                          
+  data_hash: yaml_data                                                                                                                             
+  datadir: "/etc/puppetlabs/code/environments/production/hieradata"                                                                                
+#  datadir: "/etc/puppetlabs/code/environments/%{environment}/hieradata"                                                                           
+                                                                                                                                                   
+hierarchy:                                                                                                                                         
+  - name: "Other YAML hierarchy levels"                                                                                                            
+    paths:                                                                                                                                         
+     - "hosts/%{hostname}.yaml"                                                                                                                    
+     - "roles/%{role}.yaml"                                                                                                                        
+     - "hostgroups/%{hostgroup}.yaml"                                                                                                              
+     - "%{facts.kernel}/%{facts.os.family}/%{facts.os.release.major}.yaml"                                                                         
+     - "%{facts.kernel}/%{facts.lsbdistid}/%{facts.os.release.major}.yaml"                                                                         
+     - "is_virtual/%{is_virtual}.yaml"
+     - "common.yaml"
+

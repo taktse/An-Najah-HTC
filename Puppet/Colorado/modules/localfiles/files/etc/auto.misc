@@ -1,0 +1,9 @@
+#
+# This is an automounter map and it has the following format
+# key [ -mount-options-separated-by-comma ] location
+# Details may be found in the autofs(5) manpage
+
+mail         -rw,soft,noacl,nocto,rsize=32768,wsize=32768,timeo=30,retrans=12,intr,nodev,grpid,ping=30 pizero:/usr/spool/mail
+local        -rw,soft,noacl,nocto,rsize=32768,wsize=32768,timeo=30,retrans=12,intr,nodev,grpid,ping=30 denali:/usr/local
+
+
