@@ -45,20 +45,20 @@
 class profile {
     notify{"profile": message => "Profile profile class"}
     notice("Profile class")
-    include local_defs
-    include stdlib
+#    include local_defs
+#    include stdlib
 }
 
 class profile::base inherits profile {
     notify{"profile::base": message => "Profile profile::base class"}
     notice("Profile base class")
-    include common_packages
-    include common_services
-    include localfiles
-    include autofs
-    include iptables
-    include ntp
-    include nfs
+#    include common_packages
+#    include common_services
+#    include localfiles
+#    include autofs
+#    include iptables
+#    include ntp
+#    include nfs
     include motd
 }
 
