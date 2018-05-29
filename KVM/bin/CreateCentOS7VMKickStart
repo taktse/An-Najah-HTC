@@ -55,6 +55,10 @@ case "$ipaddr" in
          netmask="255.255.240.0"
          gateway="172.16.1.2"
          ;;
+    10.*.*.*)
+         netmask="255.0.0.0"
+         gateway="10.0.0.1"
+         ;;
     *)
          echo `date`" No subnet match for $hostname $ipaddr"
          exit -1
