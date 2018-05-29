@@ -23,7 +23,7 @@ SCRIPTROOT="$SCRIPTPATH/.."
 hostname=$1
 output="$SCRIPTROOT/kickstarts/$hostname-ks.cfg"
 hostsFile="/etc/hosts"
-template="$SCRIPTROOT/templates/centos7-minimal-template.cfg"
+template="$SCRIPTROOT/templates/centos7-cobbler-template.cfg"
 rootDisksFile="$SCRIPTROOT/rootdisks/disks.lst"
 
 #
