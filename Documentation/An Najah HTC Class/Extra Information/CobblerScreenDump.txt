@@ -1,0 +1,869 @@
+
+Complete Screen Dump For Cobbler Installation Part 1
+
+htc182> yum install cobbler fence-agents cobbler-web dnsmasq syslinux pykickstart xinetd
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrordenver.fdcservers.net
+ * epel: mirror.colorado.edu
+ * extras: mirror.compevo.com
+ * updates: repos-tx.psychz.net
+Resolving Dependencies
+--> Running transaction check
+---> Package cobbler.x86_64 0:2.8.2-1.el7 will be installed
+--> Processing Dependency: PyYAML for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: createrepo for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: genisoimage for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: httpd for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: mod_wsgi for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: python-cheetah for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: python-netaddr for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: python-simplejson for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: rsync for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: tftp-server for package: cobbler-2.8.2-1.el7.x86_64
+--> Processing Dependency: yum-utils for package: cobbler-2.8.2-1.el7.x86_64
+---> Package cobbler-web.noarch 0:2.8.2-1.el7 will be installed
+--> Processing Dependency: mod_ssl for package: cobbler-web-2.8.2-1.el7.noarch
+--> Processing Dependency: python-django for package: cobbler-web-2.8.2-1.el7.noarch
+---> Package dnsmasq.x86_64 0:2.76-2.el7_4.2 will be installed
+---> Package fence-agents-all.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: fence-virt for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-wti for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-vmware-soap for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-scsi for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-sbd for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-rsb for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-rsa for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-rhevm for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-mpath for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-kdump for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ipmilan for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ipdu for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-intelmodular for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ilo2 for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ilo-ssh for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ilo-mp for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ilo-moonshot for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ifmib for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-ibmblade for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-hpblade for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-eps for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-emerson for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-eaton-snmp for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-drac5 for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-compute for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-cisco-ucs for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-cisco-mds for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-brocade for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-bladecenter for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-apc-snmp for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: fence-agents-apc for package: fence-agents-all-4.0.11-66.el7_4.4.x86_64
+---> Package pykickstart.noarch 0:1.99.66.12-1.el7 will be installed
+---> Package syslinux.x86_64 0:4.05-13.el7 will be installed
+--> Processing Dependency: mtools for package: syslinux-4.05-13.el7.x86_64
+---> Package xinetd.x86_64 2:2.3.15-13.el7 will be installed
+--> Running transaction check
+---> Package PyYAML.x86_64 0:3.10-11.el7 will be installed
+--> Processing Dependency: libyaml-0.so.2()(64bit) for package: PyYAML-3.10-11.el7.x86_64
+---> Package createrepo.noarch 0:0.9.9-28.el7 will be installed
+--> Processing Dependency: python-deltarpm for package: createrepo-0.9.9-28.el7.noarch
+--> Processing Dependency: libxml2-python for package: createrepo-0.9.9-28.el7.noarch
+--> Processing Dependency: deltarpm for package: createrepo-0.9.9-28.el7.noarch
+---> Package fence-agents-apc.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: fence-agents-common >= 4.0.11-66.el7_4.4 for package: fence-agents-apc-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: telnet for package: fence-agents-apc-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-apc-snmp.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: net-snmp-utils for package: fence-agents-apc-snmp-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-bladecenter.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-brocade.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-cisco-mds.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-cisco-ucs.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-compute.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: python-requests for package: fence-agents-compute-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-drac5.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-eaton-snmp.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-emerson.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-eps.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-hpblade.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ibmblade.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ifmib.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ilo-moonshot.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ilo-mp.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ilo-ssh.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ilo2.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: gnutls-utils for package: fence-agents-ilo2-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-intelmodular.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ipdu.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-ipmilan.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: /usr/bin/ipmitool for package: fence-agents-ipmilan-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-kdump.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-mpath.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: device-mapper-multipath for package: fence-agents-mpath-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-rhevm.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-rsa.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-rsb.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-sbd.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-agents-scsi.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: sg3_utils for package: fence-agents-scsi-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-vmware-soap.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: python-suds for package: fence-agents-vmware-soap-4.0.11-66.el7_4.4.x86_64
+---> Package fence-agents-wti.x86_64 0:4.0.11-66.el7_4.4 will be installed
+---> Package fence-virt.x86_64 0:0.3.2-12.el7 will be installed
+---> Package genisoimage.x86_64 0:1.1.11-23.el7 will be installed
+--> Processing Dependency: libusal = 1.1.11-23.el7 for package: genisoimage-1.1.11-23.el7.x86_64
+--> Processing Dependency: libusal.so.0()(64bit) for package: genisoimage-1.1.11-23.el7.x86_64
+--> Processing Dependency: librols.so.0()(64bit) for package: genisoimage-1.1.11-23.el7.x86_64
+---> Package httpd.x86_64 0:2.4.6-67.el7.centos.6 will be installed
+--> Processing Dependency: httpd-tools = 2.4.6-67.el7.centos.6 for package: httpd-2.4.6-67.el7.centos.6.x86_64
+--> Processing Dependency: libaprutil-1.so.0()(64bit) for package: httpd-2.4.6-67.el7.centos.6.x86_64
+--> Processing Dependency: libapr-1.so.0()(64bit) for package: httpd-2.4.6-67.el7.centos.6.x86_64
+---> Package mod_ssl.x86_64 1:2.4.6-67.el7.centos.6 will be installed
+---> Package mod_wsgi.x86_64 0:3.4-12.el7_0 will be installed
+---> Package mtools.x86_64 0:4.0.18-5.el7 will be installed
+---> Package python-cheetah.x86_64 0:2.4.4-5.el7.centos will be installed
+--> Processing Dependency: python-pygments for package: python-cheetah-2.4.4-5.el7.centos.x86_64
+--> Processing Dependency: python-markdown for package: python-cheetah-2.4.4-5.el7.centos.x86_64
+---> Package python-netaddr.noarch 0:0.7.5-7.el7 will be installed
+---> Package python2-django.noarch 0:1.6.11.6-16.el7 will be installed
+--> Processing Dependency: python-django-bash-completion = 1.6.11.6-16.el7 for package: python2-django-1.6.11.6-16.el7.noarch
+---> Package python2-simplejson.x86_64 0:3.10.0-1.el7 will be installed
+---> Package rsync.x86_64 0:3.0.9-18.el7 will be installed
+---> Package tftp-server.x86_64 0:5.2-13.el7 will be installed
+---> Package yum-utils.noarch 0:1.1.31-42.el7 will be installed
+--> Processing Dependency: python-kitchen for package: yum-utils-1.1.31-42.el7.noarch
+--> Running transaction check
+---> Package apr.x86_64 0:1.4.8-3.el7_4.1 will be installed
+---> Package apr-util.x86_64 0:1.5.2-6.el7 will be installed
+---> Package deltarpm.x86_64 0:3.6-3.el7 will be installed
+---> Package device-mapper-multipath.x86_64 0:0.4.9-111.el7_4.2 will be installed
+--> Processing Dependency: device-mapper-multipath-libs = 0.4.9-111.el7_4.2 for package: device-mapper-multipath-0.4.9-111.el7_4.2.x86_64
+--> Processing Dependency: libmultipath.so.0()(64bit) for package: device-mapper-multipath-0.4.9-111.el7_4.2.x86_64
+--> Processing Dependency: libmpathpersist.so.0()(64bit) for package: device-mapper-multipath-0.4.9-111.el7_4.2.x86_64
+--> Processing Dependency: libmpathcmd.so.0()(64bit) for package: device-mapper-multipath-0.4.9-111.el7_4.2.x86_64
+---> Package fence-agents-common.x86_64 0:4.0.11-66.el7_4.4 will be installed
+--> Processing Dependency: policycoreutils-python for package: fence-agents-common-4.0.11-66.el7_4.4.x86_64
+--> Processing Dependency: pexpect for package: fence-agents-common-4.0.11-66.el7_4.4.x86_64
+---> Package gnutls-utils.x86_64 0:3.3.26-9.el7 will be installed
+--> Processing Dependency: gnutls-dane(x86-64) = 3.3.26-9.el7 for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: gnutls(x86-64) = 3.3.26-9.el7 for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_PRIVATE)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_3_1_0)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_3_0_0)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_2_8)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_2_12)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_2_10)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28(GNUTLS_1_4)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls-dane.so.0(DANE_0_0)(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libunbound.so.2()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libopts.so.25()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libnettle.so.4()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libhogweed.so.2()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls.so.28()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+--> Processing Dependency: libgnutls-dane.so.0()(64bit) for package: gnutls-utils-3.3.26-9.el7.x86_64
+---> Package httpd-tools.x86_64 0:2.4.6-67.el7.centos.6 will be installed
+---> Package ipmitool.x86_64 0:1.8.18-5.el7 will be installed
+--> Processing Dependency: OpenIPMI-modalias for package: ipmitool-1.8.18-5.el7.x86_64
+---> Package libusal.x86_64 0:1.1.11-23.el7 will be installed
+---> Package libxml2-python.x86_64 0:2.9.1-6.el7_2.3 will be installed
+---> Package libyaml.x86_64 0:0.1.4-11.el7_0 will be installed
+---> Package net-snmp-utils.x86_64 1:5.7.2-28.el7_4.1 will be installed
+--> Processing Dependency: net-snmp-libs = 1:5.7.2-28.el7_4.1 for package: 1:net-snmp-utils-5.7.2-28.el7_4.1.x86_64
+--> Processing Dependency: libnetsnmp.so.31()(64bit) for package: 1:net-snmp-utils-5.7.2-28.el7_4.1.x86_64
+---> Package python-deltarpm.x86_64 0:3.6-3.el7 will be installed
+---> Package python-django-bash-completion.noarch 0:1.6.11.6-16.el7 will be installed
+---> Package python-kitchen.noarch 0:1.1.1-5.el7 will be installed
+--> Processing Dependency: python-chardet for package: python-kitchen-1.1.1-5.el7.noarch
+---> Package python-markdown.noarch 0:2.4.1-2.el7 will be installed
+---> Package python-pygments.noarch 0:1.4-10.el7 will be installed
+--> Processing Dependency: python-setuptools for package: python-pygments-1.4-10.el7.noarch
+--> Processing Dependency: python-imaging for package: python-pygments-1.4-10.el7.noarch
+---> Package python-requests.noarch 0:2.6.0-1.el7_1 will be installed
+--> Processing Dependency: python-urllib3 >= 1.10.2-1 for package: python-requests-2.6.0-1.el7_1.noarch
+---> Package python-suds.noarch 0:0.4.1-5.el7 will be installed
+---> Package sg3_utils.x86_64 0:1.37-12.el7 will be installed
+--> Processing Dependency: sg3_utils-libs = 1.37-12.el7 for package: sg3_utils-1.37-12.el7.x86_64
+--> Processing Dependency: libsgutils2.so.2()(64bit) for package: sg3_utils-1.37-12.el7.x86_64
+---> Package telnet.x86_64 1:0.17-64.el7 will be installed
+--> Running transaction check
+---> Package OpenIPMI-modalias.x86_64 0:2.0.19-15.el7 will be installed
+---> Package autogen-libopts.x86_64 0:5.18-5.el7 will be installed
+---> Package device-mapper-multipath-libs.x86_64 0:0.4.9-111.el7_4.2 will be installed
+--> Processing Dependency: librados.so.2()(64bit) for package: device-mapper-multipath-libs-0.4.9-111.el7_4.2.x86_64
+---> Package gnutls.x86_64 0:3.3.26-9.el7 will be installed
+--> Processing Dependency: trousers >= 0.3.11.2 for package: gnutls-3.3.26-9.el7.x86_64
+---> Package gnutls-dane.x86_64 0:3.3.26-9.el7 will be installed
+---> Package net-snmp-libs.x86_64 1:5.7.2-28.el7_4.1 will be installed
+---> Package nettle.x86_64 0:2.7.1-8.el7 will be installed
+---> Package pexpect.noarch 0:2.3-11.el7 will be installed
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: setools-libs >= 3.3.8-1 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libsemanage-python >= 2.5-5 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: audit-libs-python >= 2.1.3-4 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: python-IPy for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.4)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.2)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libcgroup for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libapol.so.4(VERS_4.0)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: checkpolicy for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1()(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libapol.so.4()(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+---> Package python-chardet.noarch 0:2.2.1-1.el7_1 will be installed
+---> Package python-pillow.x86_64 0:2.0.0-19.gitd1c6db8.el7 will be installed
+--> Processing Dependency: libwebp.so.4()(64bit) for package: python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64
+---> Package python-setuptools.noarch 0:0.9.8-7.el7 will be installed
+--> Processing Dependency: python-backports-ssl_match_hostname for package: python-setuptools-0.9.8-7.el7.noarch
+---> Package python-urllib3.noarch 0:1.10.2-3.el7 will be installed
+--> Processing Dependency: python-six for package: python-urllib3-1.10.2-3.el7.noarch
+---> Package sg3_utils-libs.x86_64 0:1.37-12.el7 will be installed
+---> Package unbound-libs.x86_64 0:1.4.20-34.el7 will be installed
+--> Processing Dependency: libldns.so.1()(64bit) for package: unbound-libs-1.4.20-34.el7.x86_64
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+---> Package checkpolicy.x86_64 0:2.5-4.el7 will be installed
+---> Package ldns.x86_64 0:1.6.16-10.el7 will be installed
+---> Package libcgroup.x86_64 0:0.41-13.el7 will be installed
+---> Package librados2.x86_64 1:0.94.5-2.el7 will be installed
+--> Processing Dependency: libboost_thread-mt.so.1.53.0()(64bit) for package: 1:librados2-0.94.5-2.el7.x86_64
+--> Processing Dependency: libboost_system-mt.so.1.53.0()(64bit) for package: 1:librados2-0.94.5-2.el7.x86_64
+---> Package libsemanage-python.x86_64 0:2.5-8.el7 will be installed
+---> Package libwebp.x86_64 0:0.3.0-7.el7 will be installed
+---> Package python-IPy.noarch 0:0.75-6.el7 will be installed
+---> Package python-backports-ssl_match_hostname.noarch 0:3.4.0.2-4.el7 will be installed
+--> Processing Dependency: python-backports for package: python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch
+---> Package python-six.noarch 0:1.9.0-2.el7 will be installed
+---> Package setools-libs.x86_64 0:3.3.8-1.1.el7 will be installed
+---> Package trousers.x86_64 0:0.3.14-2.el7 will be installed
+--> Running transaction check
+---> Package boost-system.x86_64 0:1.53.0-27.el7 will be installed
+---> Package boost-thread.x86_64 0:1.53.0-27.el7 will be installed
+---> Package python-backports.x86_64 0:1.0-8.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================================================================================================
+ Package                                                Arch                      Version                                      Repository                  Size
+================================================================================================================================================================
+Installing:
+ cobbler                                                x86_64                    2.8.2-1.el7                                  epel                       574 k
+ cobbler-web                                            noarch                    2.8.2-1.el7                                  epel                       287 k
+ dnsmasq                                                x86_64                    2.76-2.el7_4.2                               updates                    277 k
+ fence-agents-all                                       x86_64                    4.0.11-66.el7_4.4                            updates                     18 k
+ pykickstart                                            noarch                    1.99.66.12-1.el7                             base                       336 k
+ syslinux                                               x86_64                    4.05-13.el7                                  base                       989 k
+ xinetd                                                 x86_64                    2:2.3.15-13.el7                              base                       128 k
+Installing for dependencies:
+ OpenIPMI-modalias                                      x86_64                    2.0.19-15.el7                                base                        15 k
+ PyYAML                                                 x86_64                    3.10-11.el7                                  base                       153 k
+ apr                                                    x86_64                    1.4.8-3.el7_4.1                              updates                    103 k
+ apr-util                                               x86_64                    1.5.2-6.el7                                  base                        92 k
+ audit-libs-python                                      x86_64                    2.7.6-3.el7                                  base                        73 k
+ autogen-libopts                                        x86_64                    5.18-5.el7                                   base                        66 k
+ boost-system                                           x86_64                    1.53.0-27.el7                                base                        40 k
+ boost-thread                                           x86_64                    1.53.0-27.el7                                base                        57 k
+ checkpolicy                                            x86_64                    2.5-4.el7                                    base                       290 k
+ createrepo                                             noarch                    0.9.9-28.el7                                 base                        94 k
+ deltarpm                                               x86_64                    3.6-3.el7                                    base                        82 k
+ device-mapper-multipath                                x86_64                    0.4.9-111.el7_4.2                            updates                    134 k
+ device-mapper-multipath-libs                           x86_64                    0.4.9-111.el7_4.2                            updates                    252 k
+ fence-agents-apc                                       x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-apc-snmp                                  x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-bladecenter                               x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-brocade                                   x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-cisco-mds                                 x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-cisco-ucs                                 x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-common                                    x86_64                    4.0.11-66.el7_4.4                            updates                     65 k
+ fence-agents-compute                                   x86_64                    4.0.11-66.el7_4.4                            updates                     27 k
+ fence-agents-drac5                                     x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-eaton-snmp                                x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-emerson                                   x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-eps                                       x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-hpblade                                   x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-ibmblade                                  x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-ifmib                                     x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-ilo-moonshot                              x86_64                    4.0.11-66.el7_4.4                            updates                     20 k
+ fence-agents-ilo-mp                                    x86_64                    4.0.11-66.el7_4.4                            updates                     20 k
+ fence-agents-ilo-ssh                                   x86_64                    4.0.11-66.el7_4.4                            updates                     24 k
+ fence-agents-ilo2                                      x86_64                    4.0.11-66.el7_4.4                            updates                     23 k
+ fence-agents-intelmodular                              x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-ipdu                                      x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-ipmilan                                   x86_64                    4.0.11-66.el7_4.4                            updates                     30 k
+ fence-agents-kdump                                     x86_64                    4.0.11-66.el7_4.4                            updates                     31 k
+ fence-agents-mpath                                     x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-rhevm                                     x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-rsa                                       x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-rsb                                       x86_64                    4.0.11-66.el7_4.4                            updates                     21 k
+ fence-agents-sbd                                       x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-agents-scsi                                      x86_64                    4.0.11-66.el7_4.4                            updates                     25 k
+ fence-agents-vmware-soap                               x86_64                    4.0.11-66.el7_4.4                            updates                     23 k
+ fence-agents-wti                                       x86_64                    4.0.11-66.el7_4.4                            updates                     22 k
+ fence-virt                                             x86_64                    0.3.2-12.el7                                 base                        41 k
+ genisoimage                                            x86_64                    1.1.11-23.el7                                base                       298 k
+ gnutls                                                 x86_64                    3.3.26-9.el7                                 base                       677 k
+ gnutls-dane                                            x86_64                    3.3.26-9.el7                                 base                        34 k
+ gnutls-utils                                           x86_64                    3.3.26-9.el7                                 base                       237 k
+ httpd                                                  x86_64                    2.4.6-67.el7.centos.6                        updates                    2.7 M
+ httpd-tools                                            x86_64                    2.4.6-67.el7.centos.6                        updates                     88 k
+ ipmitool                                               x86_64                    1.8.18-5.el7                                 base                       441 k
+ ldns                                                   x86_64                    1.6.16-10.el7                                base                       476 k
+ libcgroup                                              x86_64                    0.41-13.el7                                  base                        65 k
+ librados2                                              x86_64                    1:0.94.5-2.el7                               base                       1.7 M
+ libsemanage-python                                     x86_64                    2.5-8.el7                                    base                       104 k
+ libusal                                                x86_64                    1.1.11-23.el7                                base                       135 k
+ libwebp                                                x86_64                    0.3.0-7.el7                                  base                       170 k
+ libxml2-python                                         x86_64                    2.9.1-6.el7_2.3                              base                       247 k
+ libyaml                                                x86_64                    0.1.4-11.el7_0                               base                        55 k
+ mod_ssl                                                x86_64                    1:2.4.6-67.el7.centos.6                      updates                    109 k
+ mod_wsgi                                               x86_64                    3.4-12.el7_0                                 base                        76 k
+ mtools                                                 x86_64                    4.0.18-5.el7                                 base                       203 k
+ net-snmp-libs                                          x86_64                    1:5.7.2-28.el7_4.1                           updates                    748 k
+ net-snmp-utils                                         x86_64                    1:5.7.2-28.el7_4.1                           updates                    198 k
+ nettle                                                 x86_64                    2.7.1-8.el7                                  base                       327 k
+ pexpect                                                noarch                    2.3-11.el7                                   base                       142 k
+ policycoreutils-python                                 x86_64                    2.5-17.1.el7                                 base                       446 k
+ python-IPy                                             noarch                    0.75-6.el7                                   base                        32 k
+ python-backports                                       x86_64                    1.0-8.el7                                    base                       5.8 k
+ python-backports-ssl_match_hostname                    noarch                    3.4.0.2-4.el7                                base                        12 k
+ python-chardet                                         noarch                    2.2.1-1.el7_1                                base                       227 k
+ python-cheetah                                         x86_64                    2.4.4-5.el7.centos                           extras                     341 k
+ python-deltarpm                                        x86_64                    3.6-3.el7                                    base                        31 k
+ python-django-bash-completion                          noarch                    1.6.11.6-16.el7                              epel                        17 k
+ python-kitchen                                         noarch                    1.1.1-5.el7                                  base                       267 k
+ python-markdown                                        noarch                    2.4.1-2.el7                                  epel                       186 k
+ python-netaddr                                         noarch                    0.7.5-7.el7                                  base                       983 k
+ python-pillow                                          x86_64                    2.0.0-19.gitd1c6db8.el7                      base                       438 k
+ python-pygments                                        noarch                    1.4-10.el7                                   base                       599 k
+ python-requests                                        noarch                    2.6.0-1.el7_1                                base                        94 k
+ python-setuptools                                      noarch                    0.9.8-7.el7                                  base                       397 k
+ python-six                                             noarch                    1.9.0-2.el7                                  base                        29 k
+ python-suds                                            noarch                    0.4.1-5.el7                                  base                       204 k
+ python-urllib3                                         noarch                    1.10.2-3.el7                                 base                       101 k
+ python2-django                                         noarch                    1.6.11.6-16.el7                              epel                       4.0 M
+ python2-simplejson                                     x86_64                    3.10.0-1.el7                                 epel                       188 k
+ rsync                                                  x86_64                    3.0.9-18.el7                                 base                       360 k
+ setools-libs                                           x86_64                    3.3.8-1.1.el7                                base                       612 k
+ sg3_utils                                              x86_64                    1.37-12.el7                                  base                       644 k
+ sg3_utils-libs                                         x86_64                    1.37-12.el7                                  base                        64 k
+ telnet                                                 x86_64                    1:0.17-64.el7                                base                        64 k
+ tftp-server                                            x86_64                    5.2-13.el7                                   base                        44 k
+ trousers                                               x86_64                    0.3.14-2.el7                                 base                       289 k
+ unbound-libs                                           x86_64                    1.4.20-34.el7                                base                       299 k
+ yum-utils                                              noarch                    1.1.31-42.el7                                base                       117 k
+
+Transaction Summary
+================================================================================================================================================================
+Install  7 Packages (+96 Dependent packages)
+
+Total download size: 25 M
+Installed size: 84 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/103): OpenIPMI-modalias-2.0.19-15.el7.x86_64.rpm                                                                                      |  15 kB  00:00:00     
+(2/103): PyYAML-3.10-11.el7.x86_64.rpm                                                                                                   | 153 kB  00:00:00     
+(3/103): apr-util-1.5.2-6.el7.x86_64.rpm                                                                                                 |  92 kB  00:00:00     
+(4/103): audit-libs-python-2.7.6-3.el7.x86_64.rpm                                                                                        |  73 kB  00:00:00     
+(5/103): autogen-libopts-5.18-5.el7.x86_64.rpm                                                                                           |  66 kB  00:00:00     
+(6/103): boost-system-1.53.0-27.el7.x86_64.rpm                                                                                           |  40 kB  00:00:00     
+(7/103): boost-thread-1.53.0-27.el7.x86_64.rpm                                                                                           |  57 kB  00:00:00     
+(8/103): checkpolicy-2.5-4.el7.x86_64.rpm                                                                                                | 290 kB  00:00:00     
+(9/103): apr-1.4.8-3.el7_4.1.x86_64.rpm                                                                                                  | 103 kB  00:00:00     
+(10/103): cobbler-2.8.2-1.el7.x86_64.rpm                                                                                                 | 574 kB  00:00:00     
+(11/103): createrepo-0.9.9-28.el7.noarch.rpm                                                                                             |  94 kB  00:00:00     
+(12/103): deltarpm-3.6-3.el7.x86_64.rpm                                                                                                  |  82 kB  00:00:00     
+(13/103): device-mapper-multipath-0.4.9-111.el7_4.2.x86_64.rpm                                                                           | 134 kB  00:00:00     
+(14/103): dnsmasq-2.76-2.el7_4.2.x86_64.rpm                                                                                              | 277 kB  00:00:00     
+(15/103): fence-agents-all-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  18 kB  00:00:00     
+(16/103): fence-agents-apc-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  22 kB  00:00:00     
+(17/103): device-mapper-multipath-libs-0.4.9-111.el7_4.2.x86_64.rpm                                                                      | 252 kB  00:00:00     
+(18/103): fence-agents-apc-snmp-4.0.11-66.el7_4.4.x86_64.rpm                                                                             |  22 kB  00:00:00     
+(19/103): fence-agents-bladecenter-4.0.11-66.el7_4.4.x86_64.rpm                                                                          |  21 kB  00:00:00     
+(20/103): fence-agents-brocade-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  21 kB  00:00:00     
+(21/103): fence-agents-cisco-mds-4.0.11-66.el7_4.4.x86_64.rpm                                                                            |  21 kB  00:00:00     
+(22/103): fence-agents-cisco-ucs-4.0.11-66.el7_4.4.x86_64.rpm                                                                            |  22 kB  00:00:00     
+(23/103): fence-agents-common-4.0.11-66.el7_4.4.x86_64.rpm                                                                               |  65 kB  00:00:00     
+(24/103): fence-agents-compute-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  27 kB  00:00:00     
+(25/103): fence-agents-drac5-4.0.11-66.el7_4.4.x86_64.rpm                                                                                |  22 kB  00:00:00     
+(26/103): fence-agents-eaton-snmp-4.0.11-66.el7_4.4.x86_64.rpm                                                                           |  22 kB  00:00:00     
+(27/103): fence-agents-emerson-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  21 kB  00:00:00     
+(28/103): fence-agents-eps-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  21 kB  00:00:00     
+(29/103): fence-agents-hpblade-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  21 kB  00:00:00     
+(30/103): fence-agents-ibmblade-4.0.11-66.el7_4.4.x86_64.rpm                                                                             |  21 kB  00:00:00     
+(31/103): fence-agents-ifmib-4.0.11-66.el7_4.4.x86_64.rpm                                                                                |  21 kB  00:00:00     
+(32/103): fence-agents-ilo-moonshot-4.0.11-66.el7_4.4.x86_64.rpm                                                                         |  20 kB  00:00:00     
+(33/103): fence-agents-ilo-mp-4.0.11-66.el7_4.4.x86_64.rpm                                                                               |  20 kB  00:00:00     
+(34/103): fence-agents-ilo-ssh-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  24 kB  00:00:00     
+(35/103): cobbler-web-2.8.2-1.el7.noarch.rpm                                                                                             | 287 kB  00:00:00     
+(36/103): fence-agents-ilo2-4.0.11-66.el7_4.4.x86_64.rpm                                                                                 |  23 kB  00:00:00     
+(37/103): fence-agents-intelmodular-4.0.11-66.el7_4.4.x86_64.rpm                                                                         |  21 kB  00:00:00     
+(38/103): fence-agents-ipdu-4.0.11-66.el7_4.4.x86_64.rpm                                                                                 |  21 kB  00:00:00     
+(39/103): fence-agents-ipmilan-4.0.11-66.el7_4.4.x86_64.rpm                                                                              |  30 kB  00:00:00     
+(40/103): fence-agents-kdump-4.0.11-66.el7_4.4.x86_64.rpm                                                                                |  31 kB  00:00:00     
+(41/103): fence-agents-mpath-4.0.11-66.el7_4.4.x86_64.rpm                                                                                |  22 kB  00:00:00     
+(42/103): fence-agents-rhevm-4.0.11-66.el7_4.4.x86_64.rpm                                                                                |  21 kB  00:00:00     
+(43/103): fence-agents-rsa-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  21 kB  00:00:00     
+(44/103): fence-agents-rsb-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  21 kB  00:00:00     
+(45/103): fence-agents-sbd-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  22 kB  00:00:00     
+(46/103): fence-agents-scsi-4.0.11-66.el7_4.4.x86_64.rpm                                                                                 |  25 kB  00:00:00     
+(47/103): fence-agents-vmware-soap-4.0.11-66.el7_4.4.x86_64.rpm                                                                          |  23 kB  00:00:00     
+(48/103): fence-virt-0.3.2-12.el7.x86_64.rpm                                                                                             |  41 kB  00:00:00     
+(49/103): fence-agents-wti-4.0.11-66.el7_4.4.x86_64.rpm                                                                                  |  22 kB  00:00:00     
+(50/103): gnutls-3.3.26-9.el7.x86_64.rpm                                                                                                 | 677 kB  00:00:00     
+(51/103): genisoimage-1.1.11-23.el7.x86_64.rpm                                                                                           | 298 kB  00:00:00     
+(52/103): gnutls-dane-3.3.26-9.el7.x86_64.rpm                                                                                            |  34 kB  00:00:00     
+(53/103): gnutls-utils-3.3.26-9.el7.x86_64.rpm                                                                                           | 237 kB  00:00:00     
+(54/103): ipmitool-1.8.18-5.el7.x86_64.rpm                                                                                               | 441 kB  00:00:00     
+(55/103): libcgroup-0.41-13.el7.x86_64.rpm                                                                                               |  65 kB  00:00:00     
+(56/103): ldns-1.6.16-10.el7.x86_64.rpm                                                                                                  | 476 kB  00:00:00     
+(57/103): libsemanage-python-2.5-8.el7.x86_64.rpm                                                                                        | 104 kB  00:00:00     
+(58/103): libusal-1.1.11-23.el7.x86_64.rpm                                                                                               | 135 kB  00:00:00     
+(59/103): libwebp-0.3.0-7.el7.x86_64.rpm                                                                                                 | 170 kB  00:00:00     
+(60/103): libxml2-python-2.9.1-6.el7_2.3.x86_64.rpm                                                                                      | 247 kB  00:00:00     
+(61/103): librados2-0.94.5-2.el7.x86_64.rpm                                                                                              | 1.7 MB  00:00:00     
+(62/103): libyaml-0.1.4-11.el7_0.x86_64.rpm                                                                                              |  55 kB  00:00:00     
+(63/103): httpd-2.4.6-67.el7.centos.6.x86_64.rpm                                                                                         | 2.7 MB  00:00:00     
+(64/103): mod_wsgi-3.4-12.el7_0.x86_64.rpm                                                                                               |  76 kB  00:00:00     
+(65/103): mod_ssl-2.4.6-67.el7.centos.6.x86_64.rpm                                                                                       | 109 kB  00:00:00     
+(66/103): httpd-tools-2.4.6-67.el7.centos.6.x86_64.rpm                                                                                   |  88 kB  00:00:00     
+(67/103): nettle-2.7.1-8.el7.x86_64.rpm                                                                                                  | 327 kB  00:00:00     
+(68/103): mtools-4.0.18-5.el7.x86_64.rpm                                                                                                 | 203 kB  00:00:00     
+(69/103): net-snmp-libs-5.7.2-28.el7_4.1.x86_64.rpm                                                                                      | 748 kB  00:00:00     
+(70/103): policycoreutils-python-2.5-17.1.el7.x86_64.rpm                                                                                 | 446 kB  00:00:00     
+(71/103): pexpect-2.3-11.el7.noarch.rpm                                                                                                  | 142 kB  00:00:00     
+(72/103): python-IPy-0.75-6.el7.noarch.rpm                                                                                               |  32 kB  00:00:00     
+(73/103): python-backports-1.0-8.el7.x86_64.rpm                                                                                          | 5.8 kB  00:00:00     
+(74/103): python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch.rpm                                                                   |  12 kB  00:00:00     
+(75/103): net-snmp-utils-5.7.2-28.el7_4.1.x86_64.rpm                                                                                     | 198 kB  00:00:00     
+(76/103): pykickstart-1.99.66.12-1.el7.noarch.rpm                                                                                        | 336 kB  00:00:00     
+(77/103): python-deltarpm-3.6-3.el7.x86_64.rpm                                                                                           |  31 kB  00:00:00     
+(78/103): python-chardet-2.2.1-1.el7_1.noarch.rpm                                                                                        | 227 kB  00:00:00     
+(79/103): python-kitchen-1.1.1-5.el7.noarch.rpm                                                                                          | 267 kB  00:00:00     
+(80/103): python-cheetah-2.4.4-5.el7.centos.x86_64.rpm                                                                                   | 341 kB  00:00:00     
+(81/103): python-django-bash-completion-1.6.11.6-16.el7.noarch.rpm                                                                       |  17 kB  00:00:00     
+(82/103): python-netaddr-0.7.5-7.el7.noarch.rpm                                                                                          | 983 kB  00:00:00     
+(83/103): python-pygments-1.4-10.el7.noarch.rpm                                                                                          | 599 kB  00:00:00     
+(84/103): python-requests-2.6.0-1.el7_1.noarch.rpm                                                                                       |  94 kB  00:00:00     
+(85/103): python-setuptools-0.9.8-7.el7.noarch.rpm                                                                                       | 397 kB  00:00:00     
+(86/103): python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64.rpm                                                                               | 438 kB  00:00:00     
+(87/103): python-six-1.9.0-2.el7.noarch.rpm                                                                                              |  29 kB  00:00:00     
+(88/103): python-urllib3-1.10.2-3.el7.noarch.rpm                                                                                         | 101 kB  00:00:00     
+(89/103): python-suds-0.4.1-5.el7.noarch.rpm                                                                                             | 204 kB  00:00:00     
+(90/103): python-markdown-2.4.1-2.el7.noarch.rpm                                                                                         | 186 kB  00:00:00     
+(91/103): python2-django-1.6.11.6-16.el7.noarch.rpm                                                                                      | 4.0 MB  00:00:07     
+(92/103): rsync-3.0.9-18.el7.x86_64.rpm                                                                                                  | 360 kB  00:00:00     
+(93/103): sg3_utils-1.37-12.el7.x86_64.rpm                                                                                               | 644 kB  00:00:00     
+(94/103): sg3_utils-libs-1.37-12.el7.x86_64.rpm                                                                                          |  64 kB  00:00:00     
+(95/103): setools-libs-3.3.8-1.1.el7.x86_64.rpm                                                                                          | 612 kB  00:00:00     
+(96/103): telnet-0.17-64.el7.x86_64.rpm                                                                                                  |  64 kB  00:00:00     
+(97/103): tftp-server-5.2-13.el7.x86_64.rpm                                                                                              |  44 kB  00:00:00     
+(98/103): trousers-0.3.14-2.el7.x86_64.rpm                                                                                               | 289 kB  00:00:00     
+(99/103): unbound-libs-1.4.20-34.el7.x86_64.rpm                                                                                          | 299 kB  00:00:00     
+(100/103): syslinux-4.05-13.el7.x86_64.rpm                                                                                               | 989 kB  00:00:00     
+(101/103): xinetd-2.3.15-13.el7.x86_64.rpm                                                                                               | 128 kB  00:00:00     
+(102/103): yum-utils-1.1.31-42.el7.noarch.rpm                                                                                            | 117 kB  00:00:00     
+(103/103): python2-simplejson-3.10.0-1.el7.x86_64.rpm                                                                                    | 188 kB  00:00:00     
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                           2.3 MB/s |  25 MB  00:00:10     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:telnet-0.17-64.el7.x86_64                                                                                                                1/103 
+  Installing : apr-1.4.8-3.el7_4.1.x86_64                                                                                                                 2/103 
+  Installing : nettle-2.7.1-8.el7.x86_64                                                                                                                  3/103 
+  Installing : apr-util-1.5.2-6.el7.x86_64                                                                                                                4/103 
+  Installing : python-chardet-2.2.1-1.el7_1.noarch                                                                                                        5/103 
+  Installing : libxml2-python-2.9.1-6.el7_2.3.x86_64                                                                                                      6/103 
+  Installing : boost-system-1.53.0-27.el7.x86_64                                                                                                          7/103 
+  Installing : deltarpm-3.6-3.el7.x86_64                                                                                                                  8/103 
+  Installing : python-deltarpm-3.6-3.el7.x86_64                                                                                                           9/103 
+  Installing : createrepo-0.9.9-28.el7.noarch                                                                                                            10/103 
+  Installing : boost-thread-1.53.0-27.el7.x86_64                                                                                                         11/103 
+  Installing : 1:librados2-0.94.5-2.el7.x86_64                                                                                                           12/103 
+  Installing : device-mapper-multipath-libs-0.4.9-111.el7_4.2.x86_64                                                                                     13/103 
+  Installing : device-mapper-multipath-0.4.9-111.el7_4.2.x86_64                                                                                          14/103 
+  Installing : python-kitchen-1.1.1-5.el7.noarch                                                                                                         15/103 
+  Installing : yum-utils-1.1.31-42.el7.noarch                                                                                                            16/103 
+  Installing : httpd-tools-2.4.6-67.el7.centos.6.x86_64                                                                                                  17/103 
+  Installing : httpd-2.4.6-67.el7.centos.6.x86_64                                                                                                        18/103 
+  Installing : mod_wsgi-3.4-12.el7_0.x86_64                                                                                                              19/103 
+  Installing : 1:mod_ssl-2.4.6-67.el7.centos.6.x86_64                                                                                                    20/103 
+  Installing : setools-libs-3.3.8-1.1.el7.x86_64                                                                                                         21/103 
+  Installing : ldns-1.6.16-10.el7.x86_64                                                                                                                 22/103 
+  Installing : unbound-libs-1.4.20-34.el7.x86_64                                                                                                         23/103 
+  Installing : python-django-bash-completion-1.6.11.6-16.el7.noarch                                                                                      24/103 
+  Installing : python2-django-1.6.11.6-16.el7.noarch                                                                                                     25/103 
+  Installing : python-backports-1.0-8.el7.x86_64                                                                                                         26/103 
+  Installing : python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch                                                                                  27/103 
+  Installing : python-setuptools-0.9.8-7.el7.noarch                                                                                                      28/103 
+  Installing : libwebp-0.3.0-7.el7.x86_64                                                                                                                29/103 
+  Installing : python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64                                                                                              30/103 
+  Installing : python-pygments-1.4-10.el7.noarch                                                                                                         31/103 
+  Installing : python-netaddr-0.7.5-7.el7.noarch                                                                                                         32/103 
+  Installing : sg3_utils-libs-1.37-12.el7.x86_64                                                                                                         33/103 
+  Installing : sg3_utils-1.37-12.el7.x86_64                                                                                                              34/103 
+  Installing : python-six-1.9.0-2.el7.noarch                                                                                                             35/103 
+  Installing : python-urllib3-1.10.2-3.el7.noarch                                                                                                        36/103 
+  Installing : python-requests-2.6.0-1.el7_1.noarch                                                                                                      37/103 
+  Installing : python2-simplejson-3.10.0-1.el7.x86_64                                                                                                    38/103 
+  Installing : pexpect-2.3-11.el7.noarch                                                                                                                 39/103 
+  Installing : OpenIPMI-modalias-2.0.19-15.el7.x86_64                                                                                                    40/103 
+  Installing : ipmitool-1.8.18-5.el7.x86_64                                                                                                              41/103 
+  Installing : libyaml-0.1.4-11.el7_0.x86_64                                                                                                             42/103 
+  Installing : PyYAML-3.10-11.el7.x86_64                                                                                                                 43/103 
+  Installing : python-suds-0.4.1-5.el7.noarch                                                                                                            44/103 
+  Installing : mtools-4.0.18-5.el7.x86_64                                                                                                                45/103 
+  Installing : syslinux-4.05-13.el7.x86_64                                                                                                               46/103 
+  Installing : python-markdown-2.4.1-2.el7.noarch                                                                                                        47/103 
+  Installing : python-cheetah-2.4.4-5.el7.centos.x86_64                                                                                                  48/103 
+  Installing : audit-libs-python-2.7.6-3.el7.x86_64                                                                                                      49/103 
+  Installing : autogen-libopts-5.18-5.el7.x86_64                                                                                                         50/103 
+  Installing : trousers-0.3.14-2.el7.x86_64                                                                                                              51/103 
+  Installing : gnutls-3.3.26-9.el7.x86_64                                                                                                                52/103 
+  Installing : gnutls-dane-3.3.26-9.el7.x86_64                                                                                                           53/103 
+  Installing : gnutls-utils-3.3.26-9.el7.x86_64                                                                                                          54/103 
+  Installing : checkpolicy-2.5-4.el7.x86_64                                                                                                              55/103 
+  Installing : tftp-server-5.2-13.el7.x86_64                                                                                                             56/103 
+  Installing : fence-virt-0.3.2-12.el7.x86_64                                                                                                            57/103 
+  Installing : libusal-1.1.11-23.el7.x86_64                                                                                                              58/103 
+  Installing : genisoimage-1.1.11-23.el7.x86_64                                                                                                          59/103 
+  Installing : 1:net-snmp-libs-5.7.2-28.el7_4.1.x86_64                                                                                                   60/103 
+  Installing : 1:net-snmp-utils-5.7.2-28.el7_4.1.x86_64                                                                                                  61/103 
+  Installing : libsemanage-python-2.5-8.el7.x86_64                                                                                                       62/103 
+  Installing : libcgroup-0.41-13.el7.x86_64                                                                                                              63/103 
+  Installing : python-IPy-0.75-6.el7.noarch                                                                                                              64/103 
+  Installing : policycoreutils-python-2.5-17.1.el7.x86_64                                                                                                65/103 
+  Installing : fence-agents-common-4.0.11-66.el7_4.4.x86_64                                                                                              66/103 
+  Installing : fence-agents-rsb-4.0.11-66.el7_4.4.x86_64                                                                                                 67/103 
+  Installing : fence-agents-ilo-mp-4.0.11-66.el7_4.4.x86_64                                                                                              68/103 
+  Installing : fence-agents-scsi-4.0.11-66.el7_4.4.x86_64                                                                                                69/103 
+  Installing : fence-agents-drac5-4.0.11-66.el7_4.4.x86_64                                                                                               70/103 
+  Installing : fence-agents-wti-4.0.11-66.el7_4.4.x86_64                                                                                                 71/103 
+  Installing : fence-agents-emerson-4.0.11-66.el7_4.4.x86_64                                                                                             72/103 
+  Installing : fence-agents-ifmib-4.0.11-66.el7_4.4.x86_64                                                                                               73/103 
+  Installing : fence-agents-brocade-4.0.11-66.el7_4.4.x86_64                                                                                             74/103 
+  Installing : fence-agents-ipmilan-4.0.11-66.el7_4.4.x86_64                                                                                             75/103 
+  Installing : fence-agents-eaton-snmp-4.0.11-66.el7_4.4.x86_64                                                                                          76/103 
+  Installing : fence-agents-cisco-mds-4.0.11-66.el7_4.4.x86_64                                                                                           77/103 
+  Installing : fence-agents-hpblade-4.0.11-66.el7_4.4.x86_64                                                                                             78/103 
+  Installing : fence-agents-rhevm-4.0.11-66.el7_4.4.x86_64                                                                                               79/103 
+  Installing : fence-agents-kdump-4.0.11-66.el7_4.4.x86_64                                                                                               80/103 
+  Installing : fence-agents-mpath-4.0.11-66.el7_4.4.x86_64                                                                                               81/103 
+  Installing : fence-agents-cisco-ucs-4.0.11-66.el7_4.4.x86_64                                                                                           82/103 
+  Installing : fence-agents-ibmblade-4.0.11-66.el7_4.4.x86_64                                                                                            83/103 
+  Installing : fence-agents-rsa-4.0.11-66.el7_4.4.x86_64                                                                                                 84/103 
+  Installing : fence-agents-intelmodular-4.0.11-66.el7_4.4.x86_64                                                                                        85/103 
+  Installing : fence-agents-ilo-ssh-4.0.11-66.el7_4.4.x86_64                                                                                             86/103 
+  Installing : fence-agents-apc-4.0.11-66.el7_4.4.x86_64                                                                                                 87/103 
+  Installing : fence-agents-ilo2-4.0.11-66.el7_4.4.x86_64                                                                                                88/103 
+  Installing : fence-agents-bladecenter-4.0.11-66.el7_4.4.x86_64                                                                                         89/103 
+  Installing : fence-agents-ipdu-4.0.11-66.el7_4.4.x86_64                                                                                                90/103 
+  Installing : fence-agents-eps-4.0.11-66.el7_4.4.x86_64                                                                                                 91/103 
+  Installing : fence-agents-sbd-4.0.11-66.el7_4.4.x86_64                                                                                                 92/103 
+  Installing : fence-agents-compute-4.0.11-66.el7_4.4.x86_64                                                                                             93/103 
+  Installing : fence-agents-apc-snmp-4.0.11-66.el7_4.4.x86_64                                                                                            94/103 
+  Installing : fence-agents-vmware-soap-4.0.11-66.el7_4.4.x86_64                                                                                         95/103 
+  Installing : fence-agents-ilo-moonshot-4.0.11-66.el7_4.4.x86_64                                                                                        96/103 
+  Installing : rsync-3.0.9-18.el7.x86_64                                                                                                                 97/103 
+  Installing : cobbler-2.8.2-1.el7.x86_64                                                                                                                98/103 
+  Installing : cobbler-web-2.8.2-1.el7.noarch                                                                                                            99/103 
+  Installing : fence-agents-all-4.0.11-66.el7_4.4.x86_64                                                                                                100/103 
+  Installing : pykickstart-1.99.66.12-1.el7.noarch                                                                                                      101/103 
+  Installing : dnsmasq-2.76-2.el7_4.2.x86_64                                                                                                            102/103 
+  Installing : 2:xinetd-2.3.15-13.el7.x86_64                                                                                                            103/103 
+  Verifying  : fence-agents-rsb-4.0.11-66.el7_4.4.x86_64                                                                                                  1/103 
+  Verifying  : nettle-2.7.1-8.el7.x86_64                                                                                                                  2/103 
+  Verifying  : fence-agents-ilo-mp-4.0.11-66.el7_4.4.x86_64                                                                                               3/103 
+  Verifying  : fence-agents-scsi-4.0.11-66.el7_4.4.x86_64                                                                                                 4/103 
+  Verifying  : rsync-3.0.9-18.el7.x86_64                                                                                                                  5/103 
+  Verifying  : python-cheetah-2.4.4-5.el7.centos.x86_64                                                                                                   6/103 
+  Verifying  : python-IPy-0.75-6.el7.noarch                                                                                                               7/103 
+  Verifying  : fence-agents-all-4.0.11-66.el7_4.4.x86_64                                                                                                  8/103 
+  Verifying  : 1:mod_ssl-2.4.6-67.el7.centos.6.x86_64                                                                                                     9/103 
+  Verifying  : httpd-tools-2.4.6-67.el7.centos.6.x86_64                                                                                                  10/103 
+  Verifying  : fence-agents-drac5-4.0.11-66.el7_4.4.x86_64                                                                                               11/103 
+  Verifying  : libcgroup-0.41-13.el7.x86_64                                                                                                              12/103 
+  Verifying  : boost-thread-1.53.0-27.el7.x86_64                                                                                                         13/103 
+  Verifying  : fence-agents-wti-4.0.11-66.el7_4.4.x86_64                                                                                                 14/103 
+  Verifying  : ipmitool-1.8.18-5.el7.x86_64                                                                                                              15/103 
+  Verifying  : mod_wsgi-3.4-12.el7_0.x86_64                                                                                                              16/103 
+  Verifying  : libsemanage-python-2.5-8.el7.x86_64                                                                                                       17/103 
+  Verifying  : 1:net-snmp-utils-5.7.2-28.el7_4.1.x86_64                                                                                                  18/103 
+  Verifying  : sg3_utils-1.37-12.el7.x86_64                                                                                                              19/103 
+  Verifying  : fence-agents-emerson-4.0.11-66.el7_4.4.x86_64                                                                                             20/103 
+  Verifying  : 1:net-snmp-libs-5.7.2-28.el7_4.1.x86_64                                                                                                   21/103 
+  Verifying  : deltarpm-3.6-3.el7.x86_64                                                                                                                 22/103 
+  Verifying  : fence-agents-ifmib-4.0.11-66.el7_4.4.x86_64                                                                                               23/103 
+  Verifying  : libusal-1.1.11-23.el7.x86_64                                                                                                              24/103 
+  Verifying  : apr-1.4.8-3.el7_4.1.x86_64                                                                                                                25/103 
+  Verifying  : python-deltarpm-3.6-3.el7.x86_64                                                                                                          26/103 
+  Verifying  : fence-virt-0.3.2-12.el7.x86_64                                                                                                            27/103 
+  Verifying  : policycoreutils-python-2.5-17.1.el7.x86_64                                                                                                28/103 
+  Verifying  : 1:librados2-0.94.5-2.el7.x86_64                                                                                                           29/103 
+  Verifying  : fence-agents-brocade-4.0.11-66.el7_4.4.x86_64                                                                                             30/103 
+  Verifying  : tftp-server-5.2-13.el7.x86_64                                                                                                             31/103 
+  Verifying  : checkpolicy-2.5-4.el7.x86_64                                                                                                              32/103 
+  Verifying  : trousers-0.3.14-2.el7.x86_64                                                                                                              33/103 
+  Verifying  : boost-system-1.53.0-27.el7.x86_64                                                                                                         34/103 
+  Verifying  : yum-utils-1.1.31-42.el7.noarch                                                                                                            35/103 
+  Verifying  : python2-django-1.6.11.6-16.el7.noarch                                                                                                     36/103 
+  Verifying  : fence-agents-ipmilan-4.0.11-66.el7_4.4.x86_64                                                                                             37/103 
+  Verifying  : autogen-libopts-5.18-5.el7.x86_64                                                                                                         38/103 
+  Verifying  : python-setuptools-0.9.8-7.el7.noarch                                                                                                      39/103 
+  Verifying  : fence-agents-eaton-snmp-4.0.11-66.el7_4.4.x86_64                                                                                          40/103 
+  Verifying  : fence-agents-cisco-mds-4.0.11-66.el7_4.4.x86_64                                                                                           41/103 
+  Verifying  : audit-libs-python-2.7.6-3.el7.x86_64                                                                                                      42/103 
+  Verifying  : fence-agents-hpblade-4.0.11-66.el7_4.4.x86_64                                                                                             43/103 
+  Verifying  : unbound-libs-1.4.20-34.el7.x86_64                                                                                                         44/103 
+  Verifying  : syslinux-4.05-13.el7.x86_64                                                                                                               45/103 
+  Verifying  : gnutls-dane-3.3.26-9.el7.x86_64                                                                                                           46/103 
+  Verifying  : python-markdown-2.4.1-2.el7.noarch                                                                                                        47/103 
+  Verifying  : 1:telnet-0.17-64.el7.x86_64                                                                                                               48/103 
+  Verifying  : 2:xinetd-2.3.15-13.el7.x86_64                                                                                                             49/103 
+  Verifying  : PyYAML-3.10-11.el7.x86_64                                                                                                                 50/103 
+  Verifying  : python-pillow-2.0.0-19.gitd1c6db8.el7.x86_64                                                                                              51/103 
+  Verifying  : fence-agents-rhevm-4.0.11-66.el7_4.4.x86_64                                                                                               52/103 
+  Verifying  : genisoimage-1.1.11-23.el7.x86_64                                                                                                          53/103 
+  Verifying  : fence-agents-kdump-4.0.11-66.el7_4.4.x86_64                                                                                               54/103 
+  Verifying  : python-kitchen-1.1.1-5.el7.noarch                                                                                                         55/103 
+  Verifying  : fence-agents-common-4.0.11-66.el7_4.4.x86_64                                                                                              56/103 
+  Verifying  : python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch                                                                                  57/103 
+  Verifying  : fence-agents-mpath-4.0.11-66.el7_4.4.x86_64                                                                                               58/103 
+  Verifying  : fence-agents-cisco-ucs-4.0.11-66.el7_4.4.x86_64                                                                                           59/103 
+  Verifying  : fence-agents-ibmblade-4.0.11-66.el7_4.4.x86_64                                                                                            60/103 
+  Verifying  : fence-agents-rsa-4.0.11-66.el7_4.4.x86_64                                                                                                 61/103 
+  Verifying  : mtools-4.0.18-5.el7.x86_64                                                                                                                62/103 
+  Verifying  : gnutls-3.3.26-9.el7.x86_64                                                                                                                63/103 
+  Verifying  : fence-agents-intelmodular-4.0.11-66.el7_4.4.x86_64                                                                                        64/103 
+  Verifying  : fence-agents-ilo-ssh-4.0.11-66.el7_4.4.x86_64                                                                                             65/103 
+  Verifying  : createrepo-0.9.9-28.el7.noarch                                                                                                            66/103 
+  Verifying  : fence-agents-apc-4.0.11-66.el7_4.4.x86_64                                                                                                 67/103 
+  Verifying  : fence-agents-ilo2-4.0.11-66.el7_4.4.x86_64                                                                                                68/103 
+  Verifying  : python-suds-0.4.1-5.el7.noarch                                                                                                            69/103 
+  Verifying  : fence-agents-bladecenter-4.0.11-66.el7_4.4.x86_64                                                                                         70/103 
+  Verifying  : libyaml-0.1.4-11.el7_0.x86_64                                                                                                             71/103 
+  Verifying  : httpd-2.4.6-67.el7.centos.6.x86_64                                                                                                        72/103 
+  Verifying  : fence-agents-ipdu-4.0.11-66.el7_4.4.x86_64                                                                                                73/103 
+  Verifying  : device-mapper-multipath-libs-0.4.9-111.el7_4.2.x86_64                                                                                     74/103 
+  Verifying  : device-mapper-multipath-0.4.9-111.el7_4.2.x86_64                                                                                          75/103 
+  Verifying  : OpenIPMI-modalias-2.0.19-15.el7.x86_64                                                                                                    76/103 
+  Verifying  : pexpect-2.3-11.el7.noarch                                                                                                                 77/103 
+  Verifying  : fence-agents-eps-4.0.11-66.el7_4.4.x86_64                                                                                                 78/103 
+  Verifying  : python2-simplejson-3.10.0-1.el7.x86_64                                                                                                    79/103 
+  Verifying  : fence-agents-sbd-4.0.11-66.el7_4.4.x86_64                                                                                                 80/103 
+  Verifying  : python-pygments-1.4-10.el7.noarch                                                                                                         81/103 
+  Verifying  : python-urllib3-1.10.2-3.el7.noarch                                                                                                        82/103 
+  Verifying  : python-six-1.9.0-2.el7.noarch                                                                                                             83/103 
+  Verifying  : sg3_utils-libs-1.37-12.el7.x86_64                                                                                                         84/103 
+  Verifying  : python-netaddr-0.7.5-7.el7.noarch                                                                                                         85/103 
+  Verifying  : libwebp-0.3.0-7.el7.x86_64                                                                                                                86/103 
+  Verifying  : fence-agents-compute-4.0.11-66.el7_4.4.x86_64                                                                                             87/103 
+  Verifying  : libxml2-python-2.9.1-6.el7_2.3.x86_64                                                                                                     88/103 
+  Verifying  : fence-agents-apc-snmp-4.0.11-66.el7_4.4.x86_64                                                                                            89/103 
+  Verifying  : apr-util-1.5.2-6.el7.x86_64                                                                                                               90/103 
+  Verifying  : gnutls-utils-3.3.26-9.el7.x86_64                                                                                                          91/103 
+  Verifying  : python-backports-1.0-8.el7.x86_64                                                                                                         92/103 
+  Verifying  : python-django-bash-completion-1.6.11.6-16.el7.noarch                                                                                      93/103 
+  Verifying  : ldns-1.6.16-10.el7.x86_64                                                                                                                 94/103 
+  Verifying  : dnsmasq-2.76-2.el7_4.2.x86_64                                                                                                             95/103 
+  Verifying  : cobbler-web-2.8.2-1.el7.noarch                                                                                                            96/103 
+  Verifying  : fence-agents-vmware-soap-4.0.11-66.el7_4.4.x86_64                                                                                         97/103 
+  Verifying  : cobbler-2.8.2-1.el7.x86_64                                                                                                                98/103 
+  Verifying  : python-requests-2.6.0-1.el7_1.noarch                                                                                                      99/103 
+  Verifying  : python-chardet-2.2.1-1.el7_1.noarch                                                                                                      100/103 
+  Verifying  : pykickstart-1.99.66.12-1.el7.noarch                                                                                                      101/103 
+  Verifying  : fence-agents-ilo-moonshot-4.0.11-66.el7_4.4.x86_64                                                                                       102/103 
+  Verifying  : setools-libs-3.3.8-1.1.el7.x86_64                                                                                                        103/103 
+
+Installed:
+  cobbler.x86_64 0:2.8.2-1.el7             cobbler-web.noarch 0:2.8.2-1.el7    dnsmasq.x86_64 0:2.76-2.el7_4.2    fence-agents-all.x86_64 0:4.0.11-66.el7_4.4   
+  pykickstart.noarch 0:1.99.66.12-1.el7    syslinux.x86_64 0:4.05-13.el7       xinetd.x86_64 2:2.3.15-13.el7     
+
+Dependency Installed:
+  OpenIPMI-modalias.x86_64 0:2.0.19-15.el7                                           PyYAML.x86_64 0:3.10-11.el7                                                
+  apr.x86_64 0:1.4.8-3.el7_4.1                                                       apr-util.x86_64 0:1.5.2-6.el7                                              
+  audit-libs-python.x86_64 0:2.7.6-3.el7                                             autogen-libopts.x86_64 0:5.18-5.el7                                        
+  boost-system.x86_64 0:1.53.0-27.el7                                                boost-thread.x86_64 0:1.53.0-27.el7                                        
+  checkpolicy.x86_64 0:2.5-4.el7                                                     createrepo.noarch 0:0.9.9-28.el7                                           
+  deltarpm.x86_64 0:3.6-3.el7                                                        device-mapper-multipath.x86_64 0:0.4.9-111.el7_4.2                         
+  device-mapper-multipath-libs.x86_64 0:0.4.9-111.el7_4.2                            fence-agents-apc.x86_64 0:4.0.11-66.el7_4.4                                
+  fence-agents-apc-snmp.x86_64 0:4.0.11-66.el7_4.4                                   fence-agents-bladecenter.x86_64 0:4.0.11-66.el7_4.4                        
+  fence-agents-brocade.x86_64 0:4.0.11-66.el7_4.4                                    fence-agents-cisco-mds.x86_64 0:4.0.11-66.el7_4.4                          
+  fence-agents-cisco-ucs.x86_64 0:4.0.11-66.el7_4.4                                  fence-agents-common.x86_64 0:4.0.11-66.el7_4.4                             
+  fence-agents-compute.x86_64 0:4.0.11-66.el7_4.4                                    fence-agents-drac5.x86_64 0:4.0.11-66.el7_4.4                              
+  fence-agents-eaton-snmp.x86_64 0:4.0.11-66.el7_4.4                                 fence-agents-emerson.x86_64 0:4.0.11-66.el7_4.4                            
+  fence-agents-eps.x86_64 0:4.0.11-66.el7_4.4                                        fence-agents-hpblade.x86_64 0:4.0.11-66.el7_4.4                            
+  fence-agents-ibmblade.x86_64 0:4.0.11-66.el7_4.4                                   fence-agents-ifmib.x86_64 0:4.0.11-66.el7_4.4                              
+  fence-agents-ilo-moonshot.x86_64 0:4.0.11-66.el7_4.4                               fence-agents-ilo-mp.x86_64 0:4.0.11-66.el7_4.4                             
+  fence-agents-ilo-ssh.x86_64 0:4.0.11-66.el7_4.4                                    fence-agents-ilo2.x86_64 0:4.0.11-66.el7_4.4                               
+  fence-agents-intelmodular.x86_64 0:4.0.11-66.el7_4.4                               fence-agents-ipdu.x86_64 0:4.0.11-66.el7_4.4                               
+  fence-agents-ipmilan.x86_64 0:4.0.11-66.el7_4.4                                    fence-agents-kdump.x86_64 0:4.0.11-66.el7_4.4                              
+  fence-agents-mpath.x86_64 0:4.0.11-66.el7_4.4                                      fence-agents-rhevm.x86_64 0:4.0.11-66.el7_4.4                              
+  fence-agents-rsa.x86_64 0:4.0.11-66.el7_4.4                                        fence-agents-rsb.x86_64 0:4.0.11-66.el7_4.4                                
+  fence-agents-sbd.x86_64 0:4.0.11-66.el7_4.4                                        fence-agents-scsi.x86_64 0:4.0.11-66.el7_4.4                               
+  fence-agents-vmware-soap.x86_64 0:4.0.11-66.el7_4.4                                fence-agents-wti.x86_64 0:4.0.11-66.el7_4.4                                
+  fence-virt.x86_64 0:0.3.2-12.el7                                                   genisoimage.x86_64 0:1.1.11-23.el7                                         
+  gnutls.x86_64 0:3.3.26-9.el7                                                       gnutls-dane.x86_64 0:3.3.26-9.el7                                          
+  gnutls-utils.x86_64 0:3.3.26-9.el7                                                 httpd.x86_64 0:2.4.6-67.el7.centos.6                                       
+  httpd-tools.x86_64 0:2.4.6-67.el7.centos.6                                         ipmitool.x86_64 0:1.8.18-5.el7                                             
+  ldns.x86_64 0:1.6.16-10.el7                                                        libcgroup.x86_64 0:0.41-13.el7                                             
+  librados2.x86_64 1:0.94.5-2.el7                                                    libsemanage-python.x86_64 0:2.5-8.el7                                      
+  libusal.x86_64 0:1.1.11-23.el7                                                     libwebp.x86_64 0:0.3.0-7.el7                                               
+  libxml2-python.x86_64 0:2.9.1-6.el7_2.3                                            libyaml.x86_64 0:0.1.4-11.el7_0                                            
+  mod_ssl.x86_64 1:2.4.6-67.el7.centos.6                                             mod_wsgi.x86_64 0:3.4-12.el7_0                                             
+  mtools.x86_64 0:4.0.18-5.el7                                                       net-snmp-libs.x86_64 1:5.7.2-28.el7_4.1                                    
+  net-snmp-utils.x86_64 1:5.7.2-28.el7_4.1                                           nettle.x86_64 0:2.7.1-8.el7                                                
+  pexpect.noarch 0:2.3-11.el7                                                        policycoreutils-python.x86_64 0:2.5-17.1.el7                               
+  python-IPy.noarch 0:0.75-6.el7                                                     python-backports.x86_64 0:1.0-8.el7                                        
+  python-backports-ssl_match_hostname.noarch 0:3.4.0.2-4.el7                         python-chardet.noarch 0:2.2.1-1.el7_1                                      
+  python-cheetah.x86_64 0:2.4.4-5.el7.centos                                         python-deltarpm.x86_64 0:3.6-3.el7                                         
+  python-django-bash-completion.noarch 0:1.6.11.6-16.el7                             python-kitchen.noarch 0:1.1.1-5.el7                                        
+  python-markdown.noarch 0:2.4.1-2.el7                                               python-netaddr.noarch 0:0.7.5-7.el7                                        
+  python-pillow.x86_64 0:2.0.0-19.gitd1c6db8.el7                                     python-pygments.noarch 0:1.4-10.el7                                        
+  python-requests.noarch 0:2.6.0-1.el7_1                                             python-setuptools.noarch 0:0.9.8-7.el7                                     
+  python-six.noarch 0:1.9.0-2.el7                                                    python-suds.noarch 0:0.4.1-5.el7                                           
+  python-urllib3.noarch 0:1.10.2-3.el7                                               python2-django.noarch 0:1.6.11.6-16.el7                                    
+  python2-simplejson.x86_64 0:3.10.0-1.el7                                           rsync.x86_64 0:3.0.9-18.el7                                                
+  setools-libs.x86_64 0:3.3.8-1.1.el7                                                sg3_utils.x86_64 0:1.37-12.el7                                             
+  sg3_utils-libs.x86_64 0:1.37-12.el7                                                telnet.x86_64 1:0.17-64.el7                                                
+  tftp-server.x86_64 0:5.2-13.el7                                                    trousers.x86_64 0:0.3.14-2.el7                                             
+  unbound-libs.x86_64 0:1.4.20-34.el7                                                yum-utils.noarch 0:1.1.31-42.el7                                           
+
+Complete!
+htc182> yum install perl
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirrordenver.fdcservers.net
+ * epel: mirror.colorado.edu
+ * extras: mirror.compevo.com
+ * updates: repos-tx.psychz.net
+Package 4:perl-5.16.3-292.el7.x86_64 already installed and latest version
+Nothing to do
+htc182> 
+htc182> systemctl enable cobblerd
+Created symlink from /etc/systemd/system/multi-user.target.wants/cobblerd.service to /usr/lib/systemd/system/cobblerd.service.
+htc182> systemctl enable httpd
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+htc182> systemctl enable xinetd
+htc182> 
+htc182> systemctl start cobblerd
+htc182> systemctl start httpd
+htc182> systemctl start xinetd
+
+htc182> cobbler check
+The following are potential configuration items that you may want to fix:
+
+1 : The 'server' field in /etc/cobbler/settings must be set to something other than localhost, or kickstarting features will not work.  This should be a resolvable hostname or IP for the boot server as reachable by all machines that will use it.
+2 : For PXE to be functional, the 'next_server' field in /etc/cobbler/settings must be set to something other than 127.0.0.1, and should match the IP of the boot server on the PXE network.
+3 : change 'disable' to 'no' in /etc/xinetd.d/tftp
+4 : Some network boot-loaders are missing from /var/lib/cobbler/loaders, you may run 'cobbler get-loaders' to download them, or, if you only want to handle x86/x86_64 netbooting, you may ensure that you have installed a *recent* version of the syslinux package installed and can ignore this message entirely.  Files in this directory, should you want to support all architectures, should include pxelinux.0, menu.c32, elilo.efi, and yaboot. The 'cobbler get-loaders' command is the easiest way to resolve these requirements.
+5 : enable and start rsyncd.service with systemctl
+6 : debmirror package is not installed, it will be required to manage debian deployments and repositories
+7 : The default password used by the sample templates for newly installed machines (default_password_crypted in /etc/cobbler/settings) is still set to 'cobbler' and should be changed, try: "openssl passwd -1 -salt 'random-phrase-here' 'your-password-here'" to generate new one
+
+Restart cobblerd and then run 'cobbler sync' to apply changes.
+
+htc182> 
+htc182> firewall-cmd --add-port=22/tcp --permanent
+htc182> firewall-cmd --add-port=80/tcp --permanent
+htc182> firewall-cmd --add-port=443/tcp --permanent
+htc182> firewall-cmd --add-service=dhcp --permanent
+htc182> firewall-cmd --add-port=69/tcp --permanent
+htc182> firewall-cmd --add-port=69/udp --permanent
+htc182> firewall-cmd --add-port=4011/udp --permanent
+htc182> firewall-cmd --reload
+htc182> openssl passwd -1
+Password: 
+Verifying - Password: 
+$1$V.L1K9g1$c5ODnMS1iVTg86DFo.YzK1
+
+htc182> vi /etc/cobbler/settings
+htc182> setenforce 0
+setenforce: SELinux is disabled
+htc182> vi /etc/selinux/config
+htc182> vi /etc/cobbler/modules.conf
+htc182> mv /etc/cobbler/dnsmasq.template  /etc/cobbler/dnsmasq.template.save
+htc182> vi /etc/cobbler/dnsmasq.template
+
+htc182> systemctl restart cobblerd
+htc182> sleep 10
+htc182> cobbler sync
+task started: 2018-03-11_033813_sync
+task started (id=Sync, time=Sun Mar 11 03:38:13 2018)
+running pre-sync triggers
+cleaning trees
+removing: /var/lib/tftpboot/grub/images
+copying bootloaders
+trying hardlink /usr/share/syslinux/pxelinux.0 -> /var/lib/tftpboot/pxelinux.0
+trying hardlink /usr/share/syslinux/menu.c32 -> /var/lib/tftpboot/menu.c32
+trying hardlink /usr/share/syslinux/memdisk -> /var/lib/tftpboot/memdisk
+copying distros to tftpboot
+copying images
+generating PXE configuration files
+generating PXE menu structure
+rendering DHCP files
+rendering DNS files
+rendering TFTPD files
+generating /etc/xinetd.d/tftp
+cleaning link caches
+running post-sync triggers
+running python triggers from /var/lib/cobbler/triggers/sync/post/*
+running python trigger cobbler.modules.sync_post_restart_services
+running: service dnsmasq restart
+received on stdout: 
+received on stderr: Redirecting to /bin/systemctl restart dnsmasq.service
+
+running shell triggers from /var/lib/cobbler/triggers/sync/post/*
+running python triggers from /var/lib/cobbler/triggers/change/*
+running python trigger cobbler.modules.scm_track
+running shell triggers from /var/lib/cobbler/triggers/change/*
+*** TASK COMPLETE ***
+
+htc182> systemctl restart xinetd
+htc182> mkdir -p /var/lib/cobbler/isos
+htc182> cd /var/lib/cobbler/isos
+htc182> curl -o CentOS7-x86_64-Everything.iso /sge-batch/CentOS-7-x86_64-Everything-1708.iso http://tquark.colorado.edu/computing/Install/CentOS-7-x86_64-Everything-1708.iso
+htc182> mkdir /mnt/iso
+htc182> mount -o loop /var/lib/cobbler/isos/CentOS7-x86_64-Everything.iso /mnt/iso
+mount: /dev/loop0 is write-protected, mounting read-only
+
+htc182> cobbler import --arch=x86_64 --path=/mnt/iso --name=Chtc182> curl -o CentOS7-x86_64-Everything.iso  http://tquark.colorado.edu/computing/Install/CentOS-7-x86_64-Everything-1708.iso
+htc182> cobbler import --arch=x86_64 --path=/mnt/iso --name=CentOS7
+task started: 2018-03-11_035915_import
+task started (id=Media import, time=Sun Mar 11 03:59:15 2018)
+Found a candidate signature: breed=redhat, version=rhel6
+Found a candidate signature: breed=redhat, version=rhel7
+Found a matching signature: breed=redhat, version=rhel7
+Adding distros from path /var/www/cobbler/ks_mirror/CentOS7-x86_64:
+creating new distro: CentOS7-x86_64
+trying symlink: /var/www/cobbler/ks_mirror/CentOS7-x86_64 -> /var/www/cobbler/links/CentOS7-x86_64
+creating new profile: CentOS7-x86_64
+associating repos
+checking for rsync repo(s)
+checking for rhn repo(s)
+checking for yum repo(s)
+starting descent into /var/www/cobbler/ks_mirror/CentOS7-x86_64 for CentOS7-x86_64
+processing repo at : /var/www/cobbler/ks_mirror/CentOS7-x86_64
+need to process repo/comps: /var/www/cobbler/ks_mirror/CentOS7-x86_64
+looking for /var/www/cobbler/ks_mirror/CentOS7-x86_64/repodata/*comps*.xml
+Keeping repodata as-is :/var/www/cobbler/ks_mirror/CentOS7-x86_64/repodata
+*** TASK COMPLETE ***
+
+htc182> cobbler distro report
+Name                           : CentOS7-x86_64
+Architecture                   : x86_64
+TFTP Boot Files                : {}
+Breed                          : redhat
+Comment                        :
+Fetchable Files                : {}
+Initrd                         : /var/www/cobbler/ks_mirror/CentOS7-x86_64/images/pxeboot/initrd.img
+Kernel                         : /var/www/cobbler/ks_mirror/CentOS7-x86_64/images/pxeboot/vmlinuz
+Kernel Options                 : {}
+Kernel Options (Post Install)  : {}
+Kickstart Metadata             : {'tree': 'http://@@http_server@@/cblr/links/CentOS7-x86_64'}
+Management Classes             : []
+OS Version                     : rhel7
+Owners                         : ['admin']
+Red Hat Management Key         : <<inherit>>
+Red Hat Management Server      : <<inherit>>
+Template Files                 : {}
+
