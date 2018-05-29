@@ -1,0 +1,94 @@
+#
+#
+#
+/nfs/htc180     htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                
+
+/home           htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                
+/nfs/htc-data   htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                
+/nfs/htcdata    htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                
+/nfs/htclocal   htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                
+/nfs/home       htc180.najah.edu(rw,async,no_root_squash)       htc180-gw.najah.edu(rw,async,no_root_squash) \
+                htc181.najah.edu(rw,async,no_root_squash)       htc182.najah.edu(rw,async,no_root_squash)    \
+                htc183.najah.edu(rw,async,no_root_squash)       htc184.najah.edu(rw,async,no_root_squash)    \
+                htc185.najah.edu(rw,async,no_root_squash)       htc186.najah.edu(rw,async,no_root_squash)    \
+                htc187.najah.edu(rw,async,no_root_squash)       htc188.najah.edu(rw,async,no_root_squash)    \
+                htc189.najah.edu(rw,async,no_root_squash)       htc190.najah.edu(rw,async,no_root_squash)    \
+                htc191.najah.edu(rw,async,no_root_squash)       htc192.najah.edu(rw,async,no_root_squash)    \
+                htc193.najah.edu(rw,async,no_root_squash)       htc194.najah.edu(rw,async,no_root_squash)    \
+                htc195.najah.edu(rw,async,no_root_squash)       htc196.najah.edu(rw,async,no_root_squash)    \
+                htc197.najah.edu(rw,async,no_root_squash)       htc198.najah.edu(rw,async,no_root_squash)    \
+                htc199.najah.edu(rw,async,no_root_squash)       htc200.najah.edu(rw,async,no_root_squash)    \
+                htc-puppet.najah.edu(rw,async,no_root_squash)   htclogin.najah.edu(rw,async,no_root_squash)  \
+                htc-cobbler.najah.edu(rw,async,no_root_squash)  htc.najah.edu(rw,async,no_root_squash)       \
+                hadoopnn.najah.edu(rw,async,no_root_squash)     hadoopsn.najah.edu(rw,async,no_root_squash)  
+                

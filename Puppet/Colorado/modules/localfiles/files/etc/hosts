@@ -5,9 +5,10 @@
 172.16.9.180   htc180.najah.edu           htc180
 
 10.1.0.1        htc-puppet.najah.edu      htc-puppet
-10.1.0.2        htc-cobbler.najah.edu      htc-cobbler
+10.1.0.2        htc-cobbler.najah.edu     htc-cobbler
 10.1.0.3        htc-condor.najah.edu      htc-condor
-
+10.1.0.4	hadoopnn.najah.edu	  hadoopnn
+10.1.0.5	hadoopsnn.najah.edu	  hadoopsnn
 
 10.10.0.181    htc181.najah.edu    htc181
 10.10.0.182    htc182.najah.edu    htc182
