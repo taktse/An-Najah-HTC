@@ -5,10 +5,10 @@
 name=${VMNAME:-"$1"}
 ISO=${ISO:-"/nfs/htc180/pub/centos/7/os/x86_64/images/boot.iso"}
 path_to_virts=${PATH_TO_VIRTS:-"/var/lib/libvirt/images"}
-KS=${KICKSTART_FILE:-"http://172.16.9.180/software/ks/${name}-ks.cfg"}
+KS=${KICKSTART_FILE:-"http://10.0.0.1/software/ks/${name}-ks.cfg"}
 br_device=${BR_DEVICE:-"br1"}
-CPUS=${CPUS:-"1"}
-MEMORY=${MEMORY:-"2048"}
+CPUS=${CPUS:-"2"}
+MEMORY=${MEMORY:-"4096"}
 echo $name
 echo $ISO
 echo $path_to_virts
