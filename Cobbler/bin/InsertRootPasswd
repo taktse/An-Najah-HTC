@@ -34,9 +34,9 @@ while(my $input = <IN>) {
       $input = "rootpw --iscrypted  $password\n";
     }
     if($input =~ /^ipa-client-install/) {
-      $input = "ipa-client-install                           --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
-      $input = "ipa-client-install              --force-ntpd --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
-      $input = "ipa-client-install --force-join --force-ntpd --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
+      $input =  "ipa-client-install                           --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
+      $input .= "ipa-client-install              --force-ntpd --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
+      $input .= "ipa-client-install --force-join --force-ntpd --domain=najah.edu --server=htc180.najah.edu -U -p admin -w $ipaPassword\n";
     }
   }
   print OUT $input;
