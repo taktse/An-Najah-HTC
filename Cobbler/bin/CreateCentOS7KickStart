@@ -21,7 +21,7 @@ SCRIPTROOT="$SCRIPTPATH/.."
 # Parse the command line
 #
 hostname=$1
-output="$SCRIPTROOT/kickstarts/$hostname-ks.cfg"
+output="$SCRIPTROOT/kickstarts/$hostname.ks"
 hostsFile="/etc/hosts"
 template="$SCRIPTROOT/templates/centos7-cobbler-template.cfg"
 rootDisksFile="$SCRIPTROOT/rootdisks/disks.lst"
