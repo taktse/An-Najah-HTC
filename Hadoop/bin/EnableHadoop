@@ -1,0 +1,51 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# EnableHadoop      
+#
+# REVISION HISTORY
+# Created.                                  07/21/2015  doug johnson
+#-------------------------------------------------------------------
+
+mount -a
+foreach dir (hadoop01 hadoop02 hadoop03 hadoop04)
+   echo `date`" hadoop/$dir"
+   mkdir /hadoop/$dir  >& /dev/null
+   mkdir /hadoop/$dir/data >& .dv.null
+   chown hdfs.hadoop /hadoop/$dir/data
+   ls -ald /hadoop/$dir/data
+   df -h /hadoop/$dir/data | grep dev
+end
+chkconfig hadoop-hdfs-datanode on
+chkconfig sgeexecd on
+
+#
+# Create /etc/sysconfig/hadoop from the number of HADOOP disks in /etc/fstab
+#
+set numHadoopDisks = `egrep -c '^LABEL=HADOOP' /etc/fstab`
+echo `date`" Found $numHadoopDisks Hadoop disks defined in /etc/fstab"
+if ( $numHadoopDisks == 0 ) then
+  set HadoopDisks = ""
+else if ( $numHadoopDisks == 1 ) then
+  set HadoopDisks = '/hadoop/hadoop01/data'
+else if ( $numHadoopDisks == 2 ) then
+  set HadoopDisks = '/hadoop/hadoop01/data,/hadoop/hadoop02/data'
+else if ( $numHadoopDisks == 3 ) then
+  set HadoopDisks = '/hadoop/hadoop01/data,/hadoop/hadoop02/data,/hadoop/hadoop03/data'
+else if ( $numHadoopDisks == 4 ) then
+  set HadoopDisks = '/hadoop/hadoop01/data,/hadoop/hadoop02/data,/hadoop/hadoop03/data,/hadoop/hadoop04/data'
+else
+  set HadoopDisks = "Unknown"
+endif
+
+/usr/local/adm/bin/CreateHdfsSiteXML -d "${HadoopDisks}" > /etc/hadoop/conf/hdfs-site.xml
+/usr/local/adm/bin/CreateCoreSiteXML                     > /etc/hadoop/conf/core-site.xml
+grep hadoop01 /etc/hadoop/conf/hdfs-site.xml
+
+exit
+
+

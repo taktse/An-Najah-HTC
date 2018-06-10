@@ -1,0 +1,19 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# HadoopSafeMode      
+#
+# REVISION HISTORY
+# Created.                                  07/20/2012  doug johnson
+# enter | leave | get | wait
+#-------------------------------------------------------------------
+
+# source /usr/local/adm/src/hadoop/SetHadoopEnv
+hdfs dfsadmin -safemode $1
+
+exit
+

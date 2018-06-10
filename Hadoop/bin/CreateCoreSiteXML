@@ -1,0 +1,99 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# /usr/local/adm/bin/CreateCoreSiteXML      
+#
+# REVISION HISTORY
+# Created.                                  01/04/2016  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h);
+         
+getopts("h");
+         
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   print " Usage: $0 ...\n";
+   exit;
+}
+
+my $coreSiteXML = XMLTemplate();
+print $coreSiteXML;
+exit;
+         
+         
+#
+# Code goes here...
+#
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+         
+#
+#-----------------------------------------------------------------------         
+#
+sub XMLTemplate {
+
+  my $template = <<'_END_TEMPLATE';
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+  <property>
+    <name>fs.default.name</name>
+    <value>hdfs://hadoopnn:9000</value>
+  </property>
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/hadoop/scratch</value>
+  </property>
+  <property>
+    <name>dfs.umaskmode</name>
+    <value>022</value>
+  </property>
+  <property>
+    <name>io.bytes.per.checksum</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>hadoop.log.dir</name>
+    <value>/var/log/hadoop</value>
+  </property>
+</configuration>
+         
+_END_TEMPLATE
+
+  return $template;
+
+}
+

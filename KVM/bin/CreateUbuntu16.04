@@ -1,0 +1,26 @@
+#!/bin/bash 
+#
+# This script creates a VM by running virt-install
+# virt-install --name ubuntu-16.04 --memory 4196 --disk path=/nfs/htc180/vm-images/ubuntu-16.04.qcow2,format=qcow2,size=30 --vcpus=2 --network bridge=br1 --graphics none --console pty,target_type=serial --location= /nfs/htc180/pub/ubuntu-iso/xenial/ubuntu-16.04.3-server-i386.img --extra-args "console=tyS0,115200n8 serial"
+
+name=${VMNAME:-"$1"}
+ISO=${ISO:-"/nfs/htc180/pub/ubuntu-iso/xenial/ubuntu-16.04.3-server-i386.img"}
+path_to_virts=${PATH_TO_VIRTS:-"/nfs/htc180/vm-images/"}
+br_device=${BR_DEVICE:-"br1"}
+CPUS=${CPUS:-"2"}
+MEMORY=${MEMORY:-"4196"}
+echo $name
+echo $ISO
+echo $path_to_virts
+echo $KS
+echo $br_device
+echo "CPUS: $CPUS"
+echo "Memory: $MEMORY"
+
+set -x
+
+virt-install --name ${name} --ram ${MEMORY} --disk path=${path_to_virts}/${name}.qcow2,format=qcow2,size=30 --vcpus $CPUS --os-type linux --network bridge=${br_device} --graphics none --console pty,target_type=serial --location=${ISO} --extra-args "console=ttyS0,115200n8 serial"
+
+exit
+
+

@@ -1,0 +1,26 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# DecommissionHadoopDatanode      
+#
+# REVISION HISTORY
+# Created.                                  02/09/2012  doug johnson
+#-------------------------------------------------------------------
+
+set hostname = `hostname -s`
+
+if($hostname !~ hadoopnn) then
+   echo " You can only run this command on the Hadoop Namenode"
+   exit -1
+endif
+
+# stty erase 
+/usr/bin/emacs -nw   /etc/hadoop/conf/hosts_exclude
+/usr/bin/hdfs dfsadmin -refreshNodes
+
+exit
+

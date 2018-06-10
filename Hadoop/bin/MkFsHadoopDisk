@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# MkFsHadoopDataDisk      
+#
+# REVISION HISTORY
+# Created.                                  01/21/2012  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_l, $opt_d);
+         
+getopts("hl:d:");
+         
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   print " Usage: $0 [-h] -l LABEL -d disk\n";
+   exit;
+}
+         
+#
+# Start of code
+#
+my $label  = $opt_l;
+my $device = $opt_d;
+
+#
+# Check the command line parameters
+# 
+if($label eq '') {
+  Print("You must supply a label for the disk");
+  exit;
+}
+
+if($device eq '') {
+  Print("You must supply a disk");
+  exit;
+}
+
+if($device !~ /^\/dev/) {
+  $device = "/dev/$device";
+}
+
+Print ("Making file system on $device with label: $label");
+
+my $command = "mkfs -j -m 1 -L $label $device";
+if(-e "/sbin/mkfs.ext4") {
+  $command = "/sbin/mkfs.ext4 -m 1 -L $label $device"
+}
+
+Print("Starting $command");
+system("$command");
+Print("Finished $command");
+
+exit;
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+         
+

@@ -1,0 +1,22 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# DisableHadoop      
+#
+# REVISION HISTORY
+# Created.                                  07/15/2015  doug johnson
+#-------------------------------------------------------------------
+
+/sbin/chkconfig hadoop-hdfs-datanode off
+cp /etc/fstab /tmp
+cp /etc/fstab /etc/fstab.`date +%s`
+sed s'/^LABEL=HADOOP/#LABEL=HADOOP/'g /tmp/fstab > /etc/fstab
+cat /etc/fstab
+/com-stat/SMART-Tests/GetSMARTResults
+/bin/dmesg | /bin/grep 'Add. Sense: Unrecovered read error - auto reallocate failed' | /usr/bin/uniq
+exit
+

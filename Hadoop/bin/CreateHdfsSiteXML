@@ -1,0 +1,168 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# /usr/local/adm/bin/CreateHdfsSiteXML      
+#
+# REVISION HISTORY
+# Created.                                  01/04/2016  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+$admPath = $ENV{'ADMPATH'};
+$admPath = '/usr/local/adm' unless $admPath;
+unshift(@INC, "$admPath/lib");
+         
+use strict;
+use Getopt::Std;
+our($opt_d, $opt_h);
+         
+getopts("d:h");
+
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   print " Usage: $0 ...\n";
+   exit;
+}
+         
+my $dataDisks = $opt_d;
+
+#
+# Code goes here...
+#
+my $hdfsSiteXML = XMLTemplate();
+$hdfsSiteXML  =~ s/%DATADISKS%/$dataDisks/g if $dataDisks ne '';
+
+print $hdfsSiteXML;
+exit;
+         
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+         
+#
+#-----------------------------------------------------------------------         
+#
+sub XMLTemplate {
+
+  my $template = <<'_END_TEMPLATE';
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+<property>
+  <name>dfs.block.size</name>
+  <value>134217728</value>
+</property>
+<property>
+  <name>dfs.replication</name>
+  <value>2</value>
+</property>
+<property>
+  <name>dfs.replication.max</name>
+  <value>512</value>
+</property>
+<property>
+  <name>dfs.replication.min</name>
+  <value>1</value>
+</property>
+<property>
+  <name>dfs.datanode.du.reserved</name>
+  <value>10000000000</value>
+</property>
+<property>
+  <name>dfs.balance.bandwidthPerSec</name>
+  <value>2000000000</value>
+</property>
+<property>
+  <name>dfs.data.dir</name>
+  <value>%DATADISKS%</value>
+</property>
+<property>
+  <name>dfs.datanode.handler.count</name>
+  <value>10</value>
+</property>
+<property>
+  <name>dfs.hosts.exclude</name>
+  <value>/etc/hadoop/conf/hosts_exclude</value>
+</property>
+<property>
+  <name>dfs.namenode.handler.count</name>
+  <value>40</value>
+</property>
+<property>
+  <name>dfs.namenode.logging.level</name>
+  <value>all</value>
+</property>
+<property>
+  <name>fs.checkpoint.dir</name>
+  <value>/hadoop/checkpoint,/mnt/checkpoint,/usr/local/hadoop/checkpoint</value>
+</property>
+<property>
+  <name>topology.script.file.name</name>
+  <value></value>
+</property>
+<property>
+  <name>dfs.secondary.http.address</name>
+  <value>hadoopsn:50090</value>
+  <description>
+    The secondary namenode http server address and port.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>dfs.http.address</name>
+  <value>hadoopnn:50070</value>
+  <description>
+    The address and the base port where the dfs namenode web ui will listen on.
+    If the port is 0 then the server will start on a free port.
+  </description>
+</property>
+<property>
+  <name>fs.checkpoint.period</name>
+  <value>3600</value>
+  <description>The number of seconds between two periodic checkpoints.
+  </description>
+</property>
+<property>
+  <name>dfs.permissions.supergroup</name>
+  <value>root</value>
+</property>
+
+<!--  <property>  -->
+<!--     <name>dfs.datanode.fsdataset.volume.choosing.policy</name>  -->
+<!--     <value>org.apache.hadoop.hdfs.server.datanode.fsdataset.AvailableSpaceVolumeChoosingPolicy</value>  -->
+<!--   </property>  -->
+<!--   <property>  -->
+<!--     <name>dfs.datanode.available-space-volume-choosing-policy.balanced-space-threshold</name>  -->
+<!--     <value>10737418240</value>  -->
+<!--   </property>  -->
+
+</configuration>
+
+_END_TEMPLATE
+
+  return $template;
+}
+

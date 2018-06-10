@@ -1,0 +1,99 @@
+#!/usr/bin/perl
+#
+#eval "exec perl -S $0 $*" 
+#    if $running_under_some_shell;
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff. 
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# PartedFullDisk      
+#
+# REVISION HISTORY
+# Created.                                  04/14/2014  doug johnson
+#-------------------------------------------------------------------
+$0 = substr($0, rindex($0, '/')+1);
+$| = 1;   # Force immediate output.
+         
+use strict;
+use Getopt::Std;
+our($opt_h, $opt_d);
+         
+getopts("d:h");
+         
+my $disk = $opt_d;
+if($disk eq '') {
+  $opt_h = 1;
+}
+
+#
+# If the -h option is specified, print help message and exit
+#
+if($opt_h) {
+   print " Usage: $0 ...\n";
+   exit;
+}
+         
+#
+# Code goes here...
+#
+chomp(my $optimalIOSize     = `cat /sys/block/$disk/queue/optimal_io_size`);
+chomp(my $minimumIOSize     = `cat /sys/block/$disk/queue/minimum_io_size`);
+chomp(my $alignmentOffset   = `cat /sys/block/$disk/alignment_offset`);
+chomp(my $PhysicalBlockSize = `cat /sys/block/$disk/queue/physical_block_size`);
+
+Print("Disk: $disk");
+
+#
+# Determine the grain so that we can get the correct start value
+#
+my $grain;
+my $startValue;
+if($optimalIOSize > 0) {
+  $grain = $optimalIOSize;
+  $startValue = $grain/$PhysicalBlockSize;
+}
+if($optimalIOSize == 0 and $alignmentOffset == 0 and log($minimumIOSize)/log(2) == int(log($minimumIOSize)/log(2))) {
+  $grain = 1024*1024;
+  $startValue = "1MiB";
+}
+if($grain == 0) {
+  if($minimumIOSize > 0) {
+    $grain = $minimumIOSize;
+  } else {
+    $grain = $PhysicalBlockSize;
+  }
+  $grain/$PhysicalBlockSize;
+}
+
+Print("Grain: $grain");
+Print("Start: $startValue");
+
+# Create gpt label
+#
+system("/sbin/parted -s /dev/$disk mklabel gpt");
+
+#
+# Create one big partition
+#
+system("/sbin/parted -s /dev/$disk mkpart primary ext2 $startValue 100%");
+system("/sbin/parted -s /dev/$disk p");
+
+exit;
+    
+#-------------Subroutines ---------------
+#  Subroutine to print out message with date
+#  Similar to the appearance of syslog
+#
+sub Print {
+  (my $message) = @_;
+  chomp($message);
+  chomp(my $date = `date`);
+  (my @lines) = split("\n", $message);
+  foreach my $line (@lines) {
+     print("$date\: $line\n");
+  }
+  return 0;
+}
+
