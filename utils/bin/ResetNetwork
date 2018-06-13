@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+#
+#   This script tries to ping 8.8.8.8, if it fails Ntimes times it resets the network
+#   It tries this process Ntries times and it they fail it reboots the computer
+#
+#
+Ntimes=3
+sleep=10
+Ntires=10
+remoteIP='8.8.8.16'
+ncount=3
+for j in $(seq 1 $Ntimes); do
+    for i in $(seq 1 $Ntimes); do
+	ping -c $ncount $remoteIP  > /dev/null 2>&1
+	status="$?"
+#	echo `date`" ping status: $status"
+	if [ $status != 0 ]; then
+	    echo `date`" $remoteIP does not respond to ping (times=$j,tries=$i). Sleeping $sleep"
+	    sleep $sleep
+	else
+	    exit
+	fi
+    done
+    echo `date`" Trying to reset the network"
+    systemctl restart network
+    sleep $sleep
+done
+
+echo `date`" Giving up. Rebooting the computer"
+reboot -n
+exit
