@@ -1,0 +1,28 @@
+Bootstrap: docker
+From: ubuntu:xenial
+
+%post
+apt-get update
+apt-get -y upgrade
+
+apt-get -y install wget lsof curl
+apt-get -y install perl
+apt-get -y install software-properties-common
+ls -al /usr/bin/add-apt-repository
+add-apt-repository -y ppa:sumo/stable
+apt-get update
+apt-get -y install sumo time tcsh sumo-tools # sumo-doc
+wget https://bootstrap.pypa.io/get-pip.py
+apt-get -y install python-pip
+pip  install tensorflow
+apt-get update
+mkdir  -p /projects
+mkdir  -p /scratch/summit
+mkdir  -p /curc/sw
+mkdir  -p /opt
+pip install numpy
+pip install scipy
+wget -O /sbin/wrapper.sh       http://tquark.colorado.edu/computing/Singularity/wrapper.sh
+wget -O /opt/sumo-share.tar.gz http://tquark.colorado.edu/computing/Singularity/sumo-share.tar.gz
+tar -C /usr/share/sumo -xzvf /opt/sumo-share.tar.gz
+chmod +x /sbin/wrapper.sh

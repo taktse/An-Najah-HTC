@@ -1,0 +1,28 @@
+Bootstrap: docker
+From: ubuntu:xenial
+
+%post
+apt-get update
+apt-get -y upgrade
+
+apt-get -y install python bzip2 vim emacs
+apt-get -y install wget lsof curl python3-all
+apt-get -y install perl
+apt-get -y install software-properties-common
+ls -al /usr/bin/add-apt-repository
+apt-get update
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+ln -s /usr/local/bin/pip /usr/bin/pip
+pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0-cp27-none-linux_x86_64.whl
+apt-get update
+apt-get -y dist-upgrade
+mkdir  -p /mnt/hadoop   /sge-batch
+mkdir  -p /mnt/data01   /mnt/data02    /usr/users    /usr/users02
+mkdir  -p /nfs/backup01 /nfs/backup02  /nfs/backup03
+mkdir  -p /mnt/backup01 /mnt/backup02  /mnt/backup03
+wget  -O /sbin/wrapper.sh http://tquark.colorado.edu/computing/Singularity/wrapper.sh
+chmod +x /sbin/wrapper.sh
+wget -O /tmp/anaconda3-5.2.0 https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+/bin/bash /tmp/anaconda3-5.2.0 -b -p /opt/anaconda3-5.2.0
+ln -s /opt/anaconda3-5.2.0 /opt/anaconda3

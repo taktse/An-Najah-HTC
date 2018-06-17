@@ -1,0 +1,29 @@
+Bootstrap: docker
+From: ubuntu:xenial
+
+%post
+apt-get update
+apt-get -y update
+apt-get -y install python
+apt-get -y install wget lsof curl python3-all
+apt-get -y install perl
+apt-get -y install vim emacs
+apt-get -y install software-properties-common
+ls -al /usr/bin/add-apt-repository
+add-apt-repository -y     universe
+apt-get update
+apt-get -y upgrade
+apt-get -y install tcsh bash build-essential
+apt-get -y install git libreadline-dev libboost-all-dev
+apt-get -y install libgmp-dev cmake zlib1g-dev zlib1g
+mkdir  -p /mnt/hadoop   /sge-batch
+mkdir  -p /mnt/data01   /mnt/data02    /usr/users    /usr/users02
+mkdir  -p /nfs/backup01 /nfs/backup02  /nfs/backup03 /nfs/data39
+mkdir  -p /mnt/backup01 /mnt/backup02  /mnt/backup03 /mnt/data39
+mkdir  -p /projects
+mkdir  -p /scratch/summit
+mkdir  -p /curc/sw
+mkdir  -p /work
+mkdir  -p /rc_scratch
+mkdir  -p /local/scratch
+mkdir  -p /opt

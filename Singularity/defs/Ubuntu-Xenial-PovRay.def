@@ -1,0 +1,30 @@
+Bootstrap: docker
+From: ubuntu:xenial
+
+%post
+apt-get update
+apt-get -y upgrade
+
+apt-get -y install python
+apt-get -y install wget lsof curl python3-all
+apt-get -y install perl
+apt-get -y install software-properties-common
+ls -al /usr/bin/add-apt-repository
+apt-get -y install povray povray-includes povray-examples
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+ln -s /usr/local/bin/pip /usr/bin/pip
+apt-get update
+apt-get -y dist-upgrade
+mkdir  -p /mnt/hadoop   /sge-batch
+mkdir  -p /mnt/data01   /mnt/data02    /usr/users    /usr/users02
+mkdir  -p /nfs/backup01 /nfs/backup02  /nfs/backup03
+mkdir  -p /mnt/backup01 /mnt/backup02  /mnt/backup03
+mkdir  -p /projects
+mkdir  -p /scratch/summit
+mkdir  -p /curc/sw
+mkdir  -p /work
+mkdir  -p /rc_scratch
+mkdir  -p /local/scratch
+wget  -O /sbin/wrapper.sh http://tquark.colorado.edu/computing/Singularity/wrapper.sh
+chmod +x /sbin/wrapper.sh
