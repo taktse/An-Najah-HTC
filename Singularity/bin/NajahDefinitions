@@ -1,0 +1,8 @@
+####################################################################
+#
+#  Variables forAn Najah  University HTC Cluster
+#  
+####################################################################
+export SINGULARITY_TMPDIR=/tmp/singularity/tmp
+export SINGULARITY_CACHEDIR=/tmp/singularity/cache
+export CONTAINER_DIR=/tmp

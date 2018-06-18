@@ -11,16 +11,24 @@
 # Created.                                  08/31/2017  doug johnson
 #-------------------------------------------------------------------
 
-ContainerName=`basename $ | egrep -v '.def$'`
+DefinitionFile=$1
+ContainerName=`basename $1 | sed s'/.def$//g'`
 
-/bin/rm -f /sge-batch/${ContainerName}.img
-SINGULARITY_TMPDIR=${/tmp/singularity/tmp:-"${ContainerName}"}
-SINGULARITY_CACHEDIR=${/tmp/singularity/cache:-"$2"}
+SINGULARITY_TMPDIR=${SINGULARITY_TMPDIR:-"/tmp/singularity/tmp"}
+SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR:-"/tmp/singularity/cache"}
+CONTAINER_DIR=${CONTAINER_DIR:-"/tmp"}
 
-set -x
 export SINGULARITY_TMPDIR=${SINGULARITY_TMPDIR}
 export SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}
-mkdir -p $SINGULARITY_TMPDIR $SINGULARITY_CACHEDIR
-singularity build  /sge-batch/${ContainerName}.img ${ContainerName}.def
+export CONTAINER_DIR=${CONTAINER_DIR}
+ 
+/bin/rm -f ${CONTAINER_DIR}/${ContainerName}.img
+/bin/mkdir -p $SINGULARITY_TMPDIR $SINGULARITY_CACHEDIR
+echo `date`" Starting singularity build  ${CONTAINER_DIR}/${ContainerName}.img ${DefinitionFile}"
+echo `date`"           SINGULARITY_TMPDIR=${SINGULARITY_TMPDIR}"
+echo `date`"           SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}"
+echo `date`"           CONTAINER_DIR=${CONTAINER_DIR}"
+
+singularity build  ${CONTAINER_DIR}/${ContainerName}.img ${DefinitionFile}
 
 exit

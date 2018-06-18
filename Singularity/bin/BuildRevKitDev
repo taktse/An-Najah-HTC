@@ -1,0 +1,7 @@
+#!/bin/bash
+git clone --recursive https://github.com/msoeken/cirkit.git
+cd cirkit
+mkdir build
+cd build
+cmake ..
+make cirkit

@@ -1,0 +1,8 @@
+####################################################################
+#
+#  Variables for University of Colorado Cluster
+#  
+####################################################################
+export SINGULARITY_TMPDIR=/sge-batch/singularity/tmp
+export SINGULARITY_CACHEDIR=/sge-batch/singularity/cache
+export CONTAINER_DIR=/sge-batch
