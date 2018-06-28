@@ -1,0 +1,26 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# RunHadoopFsck      
+#
+# REVISION HISTORY
+# Created.                                  10/19/2011  doug johnson
+#-------------------------------------------------------------------
+
+
+echo `date`" Starting $0"
+echo `date`" Running on: "`hostname -s`
+
+echo `date`" Starting /usr/bin/hadoop fsck /"
+@ startTime = `date +%s`
+/usr/bin/hdfs fsck / |& egrep -v '^....................................................................................................$'
+@ endTime   = `date +%s`
+set elapsedTime = `expr $endTime - $startTime`
+echo " fsck took:  $elapsedTime seconds"
+echo `date`" Finished /usr/bin/hadoop fsck /"
+exit
+

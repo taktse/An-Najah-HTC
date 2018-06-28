@@ -1,0 +1,26 @@
+#!/bin/csh -f
+#------------------------------------------------------------==ADM==
+# Custom Software, Developed for CUHEP by staff.
+# This software is in the public domain, furnished "as is", without
+# technical support, and with no warranty, express or implied, as
+# to its usefulness for any purpose.
+#
+# HadoopBalance      
+#
+# REVISION HISTORY
+# Created.                                  09/13/2009  doug johnson
+#-------------------------------------------------------------------
+
+echo `date`" Starting $0"
+/usr/bin/hdfs balancer -threshold 5 |& grep -v INFO
+echo `date`" Finished Hadoop balancer"
+echo `date`" Starting /usr/bin/hdfs fsck /"
+@ startTime = `date +%s`
+/usr/bin/hdfs fsck / |& egrep -v '^....................................................................................................$'
+@ endTime   = `date +%s`
+set elapsedTime = `expr $endTime - $startTime`
+echo " fsck took:  $elapsedTime seconds"
+echo `date`" Finished /usr/bin/hdfs fsck /"
+
+exit
+
